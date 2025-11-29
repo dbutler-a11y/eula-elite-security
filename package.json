@@ -1,0 +1,35 @@
+{
+  "name": "eula-elite-asset-server",
+  "version": "1.0.0",
+  "description": "Brand Asset Management Server for Eula Elite Security & Transport",
+  "main": "asset_server.js",
+  "scripts": {
+    "start": "node asset_server.js",
+    "dev": "nodemon asset_server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bull": "^4.16.5",
+    "cluster": "^0.7.7",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "express": "^4.21.2",
+    "helmet": "^8.1.0",
+    "node-cron": "^4.2.1",
+    "node-fetch": "^3.3.2",
+    "redis": "^5.8.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "brand-assets",
+    "asset-management",
+    "eula-elite",
+    "security"
+  ],
+  "author": "Eula Elite Security & Transport",
+  "license": "MIT"
+}

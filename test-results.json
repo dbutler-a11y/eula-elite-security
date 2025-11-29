@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-09-05T07:16:55.777Z",
+  "results": {
+    "passed": 18,
+    "failed": 9,
+    "errors": [
+      "Marketing Stats API returned 404, expected 200",
+      "Marketing Leads API returned 404, expected 200",
+      "Marketing Campaigns API returned 404, expected 200",
+      "A/B Tests API returned 404, expected 200",
+      "Optimization Metrics API returned 404, expected 200",
+      "Funnel Analysis API returned 404, expected 200",
+      "Optimization Content API returned 404, expected 200",
+      "Infrastructure Stats API returned 404, expected 200",
+      "Performance Metrics API returned 404, expected 200"
+    ]
+  },
+  "systemInfo": {
+    "nodeVersion": "v24.7.0",
+    "platform": "darwin",
+    "uptime": 1.130927708
+  }
+}

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat Management - Eula Elite Admin</title>
+    <link rel="stylesheet" href="../public/css/admin.css">
+    <link rel="icon" type="image/svg+xml" href="/logo-mark.svg">
+    <style>
+        .chat-dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--spacing-lg);
+            height: calc(100vh - 200px);
+        }
+
+        .active-chats-panel {
+            background: white;
+            border: 2px solid var(--champagne-gold);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-panel-header {
+            background: linear-gradient(135deg, var(--steel-blue), var(--midnight-blue));
+            color: white;
+            padding: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .chat-item {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--admin-border);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .chat-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .chat-item.active {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+        }
+
+        .chat-item.emergency {
+            border-left: 4px solid var(--ruby-red);
+            background: rgba(192, 57, 43, 0.05);
+        }
+
+        .client-name {
+            font-weight: 600;
+            font-size: var(--text-sm);
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: var(--text-xs);
+            opacity: 0.8;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.active {
+            background: var(--emerald-green);
+        }
+
+        .status-dot.waiting {
+            background: var(--amber-warning);
+        }
+
+        .status-dot.emergency {
+            background: var(--ruby-red);
+            animation: emergency-pulse 1s infinite;
+        }
+
+        .chat-interface {
+            background: white;
+            border: 2px solid var(--champagne-gold);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--champagne-gold), var(--warm-gold));
+            color: var(--onyx-black);
+            padding: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .client-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .client-title {
+            font-weight: 600;
+            font-size: var(--text-lg);
+        }
+
+        .client-details {
+            font-size: var(--text-sm);
+            opacity: 0.8;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: var(--text-sm);
+            transition: all 0.2s ease;
+        }
+
+        .emergency-btn {
+            background: var(--ruby-red);
+            color: white;
+        }
+
+        .transfer-btn {
+            background: var(--sapphire-blue);
+            color: white;
+        }
+
+        .close-btn {
+            background: var(--charcoal-gray);
+            color: white;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: var(--spacing-md);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            min-height: 400px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .admin-message {
+            align-self: flex-end;
+            background: var(--sapphire-blue);
+            color: white;
+        }
+
+        .client-message {
+            align-self: flex-start;
+            background: #f0f0f0;
+            color: var(--charcoal-gray);
+        }
+
+        .system-message {
+            align-self: center;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--steel-blue);
+            font-style: italic;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .message-meta {
+            font-size: var(--text-xs);
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .typing-indicator {
+            padding: 10px 15px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            align-self: flex-start;
+            display: none;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 3px;
+        }
+
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--charcoal-gray);
+            border-radius: 50%;
+            animation: typing-bounce 1.4s infinite;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .chat-input-area {
+            border-top: 1px solid var(--admin-border);
+            padding: var(--spacing-md);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid var(--champagne-gold);
+            border-radius: 25px;
+            font-family: var(--font-professional);
+            resize: none;
+            max-height: 100px;
+            outline: none;
+        }
+
+        .message-input:focus {
+            border-color: var(--steel-blue);
+        }
+
+        .send-btn {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .send-btn:hover {
+            background: var(--warm-gold);
+            transform: translateY(-1px);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-chat-selected {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--charcoal-gray);
+            text-align: center;
+        }
+
+        .emergency-alert {
+            background: linear-gradient(45deg, var(--ruby-red), #e74c3c);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: 10px;
+            margin-bottom: var(--spacing-md);
+            animation: emergency-pulse 2s infinite;
+        }
+
+        @keyframes emergency-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+
+        @keyframes typing-bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        @media (max-width: 768px) {
+            .chat-dashboard {
+                grid-template-columns: 1fr;
+                grid-template-rows: 250px 1fr;
+            }
+            
+            .active-chats-panel {
+                max-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="header-content">
+                <h1 class="admin-title">🛡️ Live Chat Management</h1>
+                <div class="admin-nav">
+                    <a href="index.html" class="nav-link">Dashboard</a>
+                    <a href="clients.html" class="nav-link">Clients</a>
+                    <a href="bookings.html" class="nav-link">Bookings</a>
+                    <a href="ppo.html" class="nav-link">PPO Management</a>
+                    <a href="chat.html" class="nav-link active">Live Chat</a>
+                    <a href="content.html" class="nav-link">Content</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <div id="emergency-alerts"></div>
+            
+            <div class="chat-dashboard">
+                <div class="active-chats-panel">
+                    <div class="chat-panel-header">
+                        <h3>Active Chats</h3>
+                        <div class="connection-status">
+                            <span id="connection-dot" class="status-dot disconnected"></span>
+                            <span id="connection-text">Connecting...</span>
+                        </div>
+                    </div>
+                    <div class="chat-list" id="chat-list">
+                        <div class="chat-item">
+                            <div class="client-name">No active chats</div>
+                            <div class="chat-status">
+                                <span class="status-dot"></span>
+                                <span>Waiting for clients...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-interface">
+                    <div id="no-chat-view" class="no-chat-selected">
+                        <div style="font-size: 4rem; margin-bottom: var(--spacing-md);">💬</div>
+                        <h3>Select a chat to begin</h3>
+                        <p>Choose an active chat from the left panel to start PPO assistance</p>
+                    </div>
+
+                    <div id="chat-view" style="display: none; flex-direction: column; height: 100%;">
+                        <div class="chat-header">
+                            <div class="client-info">
+                                <div class="client-title" id="current-client-name">Client Name</div>
+                                <div class="client-details" id="current-client-details">Chat started at 00:00</div>
+                            </div>
+                            <div class="chat-actions">
+                                <button class="action-btn emergency-btn" id="dispatch-btn" title="Dispatch Emergency Unit">🚨 Dispatch</button>
+                                <button class="action-btn transfer-btn" id="transfer-btn" title="Transfer to Another PPO">↗️ Transfer</button>
+                                <button class="action-btn close-btn" id="close-chat-btn" title="Close Chat">✖️ Close</button>
+                            </div>
+                        </div>
+
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Messages will be dynamically added here -->
+                        </div>
+
+                        <div class="typing-indicator" id="typing-indicator">
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <span style="margin-left: 10px; font-size: var(--text-xs);">Client is typing...</span>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <div class="input-container">
+                                <textarea id="message-input" class="message-input" placeholder="Type your response to the client..." rows="1" disabled></textarea>
+                                <button id="send-btn" class="send-btn" disabled>Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Socket.IO Client Library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Admin Chat Management System
+        class AdminChatManager {
+            constructor() {
+                this.socket = null;
+                this.currentChatId = null;
+                this.adminName = 'PPO Admin';
+                this.isConnected = false;
+                this.activeChats = new Map();
+                
+                this.init();
+            }
+
+            init() {
+                this.connectSocket();
+                this.attachEventListeners();
+                this.updateConnectionStatus('connecting', 'Connecting to chat system...');
+            }
+
+            connectSocket() {
+                this.socket = io('http://localhost:8081');
+                
+                this.socket.on('connect', () => {
+                    console.log('🔗 Admin connected to chat system');
+                    this.isConnected = true;
+                    this.updateConnectionStatus('connected', 'Connected');
+                    
+                    // Join admin room
+                    this.socket.emit('join_chat', {
+                        clientId: 'admin_' + Date.now(),
+                        clientName: this.adminName,
+                        isAdmin: true
+                    });
+                });
+
+                this.socket.on('disconnect', () => {
+                    console.log('❌ Admin disconnected from chat system');
+                    this.isConnected = false;
+                    this.updateConnectionStatus('disconnected', 'Disconnected');
+                });
+
+                this.socket.on('new_chat_alert', (data) => {
+                    this.handleNewChat(data);
+                });
+
+                this.socket.on('active_chats_update', (chats) => {
+                    this.updateActiveChatsList(chats);
+                });
+
+                this.socket.on('new_message', (message) => {
+                    this.handleNewMessage(message);
+                });
+
+                this.socket.on('client_typing', (data) => {
+                    this.showClientTyping(data);
+                });
+
+                this.socket.on('client_typing_stop', () => {
+                    this.hideClientTyping();
+                });
+
+                this.socket.on('emergency_alert', (alert) => {
+                    this.handleEmergencyAlert(alert);
+                });
+
+                this.socket.on('client_disconnected', (data) => {
+                    this.handleClientDisconnected(data);
+                });
+            }
+
+            attachEventListeners() {
+                const messageInput = document.getElementById('message-input');
+                const sendBtn = document.getElementById('send-btn');
+                const dispatchBtn = document.getElementById('dispatch-btn');
+                const transferBtn = document.getElementById('transfer-btn');
+                const closeChatBtn = document.getElementById('close-chat-btn');
+
+                sendBtn.addEventListener('click', () => this.sendMessage());
+                messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+
+                dispatchBtn.addEventListener('click', () => this.dispatchEmergencyUnit());
+                transferBtn.addEventListener('click', () => this.transferChat());
+                closeChatBtn.addEventListener('click', () => this.closeChat());
+            }
+
+            updateConnectionStatus(status, text) {
+                const dot = document.getElementById('connection-dot');
+                const textEl = document.getElementById('connection-text');
+                
+                dot.className = `status-dot ${status}`;
+                textEl.textContent = text;
+            }
+
+            handleNewChat(data) {
+                console.log('📞 New chat alert:', data);
+                
+                this.activeChats.set(data.clientId, {
+                    ...data,
+                    status: 'waiting',
+                    messages: []
+                });
+                
+                this.updateActiveChatsList(Array.from(this.activeChats.values()));
+                this.showNotification(`New chat from ${data.clientName}`);
+            }
+
+            updateActiveChatsList(chats) {
+                const chatList = document.getElementById('chat-list');
+                
+                if (!chats || chats.length === 0) {
+                    chatList.innerHTML = `
+                        <div class="chat-item">
+                            <div class="client-name">No active chats</div>
+                            <div class="chat-status">
+                                <span class="status-dot"></span>
+                                <span>Waiting for clients...</span>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                chatList.innerHTML = chats.map(chat => `
+                    <div class="chat-item ${chat.status === 'emergency' ? 'emergency' : ''}" 
+                         data-client-id="${chat.clientId}" 
+                         onclick="adminChat.selectChat('${chat.clientId}')">
+                        <div class="client-name">${chat.clientName}</div>
+                        <div class="chat-status">
+                            <span class="status-dot ${chat.status}"></span>
+                            <span>${this.formatChatStatus(chat)}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Update active chats map
+                chats.forEach(chat => {
+                    this.activeChats.set(chat.clientId, chat);
+                });
+            }
+
+            formatChatStatus(chat) {
+                const timeSinceStart = Math.floor((new Date() - new Date(chat.startTime)) / 1000 / 60);
+                
+                switch (chat.status) {
+                    case 'waiting':
+                        return `Waiting for response (${timeSinceStart}m)`;
+                    case 'active':
+                        return `Active chat (${timeSinceStart}m)`;
+                    case 'emergency':
+                        return `🚨 EMERGENCY (${timeSinceStart}m)`;
+                    default:
+                        return `${timeSinceStart}m ago`;
+                }
+            }
+
+            selectChat(clientId) {
+                this.currentChatId = clientId;
+                const chat = this.activeChats.get(clientId);
+                
+                if (!chat) return;
+
+                // Update UI to show selected chat
+                document.querySelectorAll('.chat-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`[data-client-id="${clientId}"]`).classList.add('active');
+
+                // Show chat interface
+                document.getElementById('no-chat-view').style.display = 'none';
+                document.getElementById('chat-view').style.display = 'flex';
+
+                // Update chat header
+                document.getElementById('current-client-name').textContent = chat.clientName;
+                document.getElementById('current-client-details').textContent = 
+                    `Chat started ${new Date(chat.startTime).toLocaleTimeString()}`;
+
+                // Enable input
+                const messageInput = document.getElementById('message-input');
+                const sendBtn = document.getElementById('send-btn');
+                messageInput.disabled = false;
+                sendBtn.disabled = false;
+                messageInput.focus();
+
+                // Take over the chat
+                this.socket.emit('admin_take_chat', {
+                    clientId: clientId,
+                    adminName: this.adminName
+                });
+
+                // Load chat history
+                this.loadChatHistory(clientId);
+            }
+
+            loadChatHistory(clientId) {
+                // Clear current messages
+                document.getElementById('chat-messages').innerHTML = '';
+                
+                // Request chat history from server
+                fetch(`/api/chat/history/${clientId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success && data.messages) {
+                            data.messages.forEach(message => {
+                                this.displayMessage(message);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading chat history:', error);
+                    });
+            }
+
+            handleNewMessage(message) {
+                if (message.clientId === this.currentChatId || message.senderType === 'admin') {
+                    this.displayMessage(message);
+                }
+                
+                // Update unread count for other chats
+                if (message.clientId !== this.currentChatId) {
+                    this.showChatNotification(message.clientId, message);
+                }
+            }
+
+            displayMessage(message) {
+                const messagesContainer = document.getElementById('chat-messages');
+                const messageDiv = document.createElement('div');
+                
+                const isFromAdmin = message.senderType === 'admin';
+                const timestamp = new Date(message.timestamp).toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+
+                messageDiv.className = `message ${isFromAdmin ? 'admin-message' : 'client-message'}`;
+                
+                if (message.isEmergency) {
+                    messageDiv.classList.add('emergency-message');
+                }
+
+                messageDiv.innerHTML = `
+                    <div class="message-meta">${message.sender} • ${timestamp}</div>
+                    <div class="message-content">${this.escapeHtml(message.message)}</div>
+                `;
+
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            sendMessage() {
+                const messageInput = document.getElementById('message-input');
+                const message = messageInput.value.trim();
+                
+                if (!message || !this.currentChatId || !this.isConnected) return;
+
+                this.socket.emit('send_message', {
+                    message,
+                    clientId: this.currentChatId
+                });
+
+                messageInput.value = '';
+            }
+
+            showClientTyping(data) {
+                if (data.clientId === this.currentChatId) {
+                    document.getElementById('typing-indicator').style.display = 'flex';
+                }
+            }
+
+            hideClientTyping() {
+                document.getElementById('typing-indicator').style.display = 'none';
+            }
+
+            handleEmergencyAlert(alert) {
+                console.log('🚨 EMERGENCY ALERT:', alert);
+                
+                this.showEmergencyAlert(alert);
+                
+                // Play alert sound (optional)
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance('Emergency alert received');
+                    speechSynthesis.speak(utterance);
+                }
+            }
+
+            showEmergencyAlert(alert) {
+                const alertsContainer = document.getElementById('emergency-alerts');
+                const alertDiv = document.createElement('div');
+                
+                alertDiv.className = 'emergency-alert';
+                alertDiv.innerHTML = `
+                    <h4>🚨 EMERGENCY ALERT</h4>
+                    <p><strong>Client:</strong> ${alert.clientId}</p>
+                    <p><strong>Time:</strong> ${new Date(alert.timestamp).toLocaleString()}</p>
+                    <p><strong>Message:</strong> ${alert.message}</p>
+                    ${alert.location ? `<p><strong>Location:</strong> ${alert.location}</p>` : ''}
+                `;
+                
+                alertsContainer.appendChild(alertDiv);
+                
+                // Auto-remove after 30 seconds
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 30000);
+            }
+
+            dispatchEmergencyUnit() {
+                if (!this.currentChatId) return;
+                
+                const confirmed = confirm('Dispatch emergency PPO unit to client location?');
+                if (confirmed) {
+                    const message = '🚨 Emergency PPO unit dispatched. ETA: 12-15 minutes. Please remain in secure location.';
+                    
+                    this.socket.emit('send_message', {
+                        message,
+                        clientId: this.currentChatId
+                    });
+                    
+                    alert('Emergency unit dispatched successfully');
+                }
+            }
+
+            transferChat() {
+                if (!this.currentChatId) return;
+                
+                const targetAdmin = prompt('Transfer chat to PPO (enter name):');
+                if (targetAdmin) {
+                    const message = `Chat transferred to ${targetAdmin}. They will assist you shortly.`;
+                    
+                    this.socket.emit('send_message', {
+                        message,
+                        clientId: this.currentChatId
+                    });
+                    
+                    alert(`Chat transferred to ${targetAdmin}`);
+                }
+            }
+
+            closeChat() {
+                if (!this.currentChatId) return;
+                
+                const confirmed = confirm('Close this chat session?');
+                if (confirmed) {
+                    const message = 'Chat session ended by PPO. Thank you for using Eula Elite Security services.';
+                    
+                    this.socket.emit('send_message', {
+                        message,
+                        clientId: this.currentChatId
+                    });
+                    
+                    // Remove from active chats
+                    this.activeChats.delete(this.currentChatId);
+                    
+                    // Return to no-chat view
+                    this.currentChatId = null;
+                    document.getElementById('no-chat-view').style.display = 'flex';
+                    document.getElementById('chat-view').style.display = 'none';
+                    
+                    this.updateActiveChatsList(Array.from(this.activeChats.values()));
+                }
+            }
+
+            showNotification(message) {
+                // Simple browser notification
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    new Notification('Eula Elite Chat', {
+                        body: message,
+                        icon: '/logo-mark.svg'
+                    });
+                }
+            }
+
+            showChatNotification(clientId, message) {
+                const chatItem = document.querySelector(`[data-client-id="${clientId}"]`);
+                if (chatItem && !chatItem.classList.contains('active')) {
+                    chatItem.style.animation = 'notification-pulse 2s infinite';
+                }
+            }
+
+            handleClientDisconnected(data) {
+                console.log('Client disconnected:', data);
+                
+                if (data.clientId === this.currentChatId) {
+                    const message = `${data.clientName} has disconnected from the chat.`;
+                    this.displayMessage({
+                        sender: 'System',
+                        senderType: 'system',
+                        message,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+                
+                // Update chat status
+                const chat = this.activeChats.get(data.clientId);
+                if (chat) {
+                    chat.status = 'disconnected';
+                    this.updateActiveChatsList(Array.from(this.activeChats.values()));
+                }
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize admin chat manager
+        let adminChat;
+        document.addEventListener('DOMContentLoaded', () => {
+            adminChat = new AdminChatManager();
+            
+            // Request notification permission
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        });
+    </script>
+</body>
+</html>

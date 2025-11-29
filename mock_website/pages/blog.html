@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Insights - Eula Elite Security & Transport Blog</title>
+    <meta name="description" content="Expert insights on executive protection, security best practices, and Houston VIP protection from Licensed Level IV PPOs.">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="icon" type="image/svg+xml" href="http://localhost:8080/logo-mark.svg">
+    <style>
+        .blog-header {
+            background: var(--onyx-black);
+            color: var(--platinum);
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .blog-search {
+            max-width: 600px;
+            margin: var(--spacing-lg) auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 2px solid var(--champagne-gold);
+            border-radius: 25px;
+            font-size: var(--text-lg);
+            background: var(--pearl-white);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+        
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .category-filter {
+            background: transparent;
+            border: 2px solid var(--champagne-gold);
+            color: var(--champagne-gold);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-filter:hover,
+        .category-filter.active {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .blog-post {
+            background: var(--pearl-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+        
+        .post-image {
+            height: 200px;
+            background: var(--charcoal-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--champagne-gold);
+            font-size: var(--text-4xl);
+        }
+        
+        .post-content {
+            padding: var(--spacing-lg);
+        }
+        
+        .post-category {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .post-title {
+            font-family: var(--font-modern);
+            font-size: var(--text-xl);
+            font-weight: 600;
+            color: var(--steel-blue);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.3;
+        }
+        
+        .post-excerpt {
+            color: var(--charcoal-gray);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--charcoal-gray);
+            font-size: var(--text-sm);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--platinum);
+        }
+        
+        .read-more {
+            color: var(--champagne-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: var(--steel-blue);
+        }
+        
+        .featured-post {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            background: var(--midnight-blue);
+            color: var(--platinum);
+            padding: var(--spacing-xl);
+            border-radius: 12px;
+        }
+        
+        .featured-content h2 {
+            color: var(--champagne-gold);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .featured-image {
+            height: 300px;
+            background: var(--charcoal-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--champagne-gold);
+            font-size: var(--text-6xl);
+        }
+        
+        .newsletter-signup {
+            background: var(--onyx-black);
+            color: var(--platinum);
+            padding: var(--spacing-2xl);
+            border-radius: 12px;
+            text-align: center;
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .newsletter-form {
+            max-width: 400px;
+            margin: var(--spacing-lg) auto 0;
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: var(--spacing-sm);
+            border: 2px solid var(--champagne-gold);
+            border-radius: 8px;
+            background: var(--pearl-white);
+        }
+        
+        @media (max-width: 768px) {
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .category-filters {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Eula Elite</a>
+            <ul class="main-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="blog.html" class="nav-link active">Insights</a></li>
+                <li><a href="tel:+17135551234" class="btn btn-emergency">Emergency: (713) 555-1234</a></li>
+            </ul>
+            <button class="menu-toggle">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Blog Header -->
+        <section class="blog-header">
+            <div class="container text-center">
+                <h1 class="headline-hero">Security Insights</h1>
+                <p class="hero-subtitle">Expert analysis and industry intelligence from Licensed Level IV Personal Protection Officers</p>
+                
+                <div class="blog-search">
+                    <input type="text" id="blog-search" class="search-input" placeholder="Search security insights, protection strategies, Houston VIP security...">
+                </div>
+                
+                <div class="category-filters">
+                    <button class="category-filter active" data-category="all">All Posts</button>
+                    <button class="category-filter" data-category="executive-protection">Executive Protection</button>
+                    <button class="category-filter" data-category="threat-assessment">Threat Assessment</button>
+                    <button class="category-filter" data-category="houston-security">Houston Security</button>
+                    <button class="category-filter" data-category="lifestyle-integration">Lifestyle Integration</button>
+                    <button class="category-filter" data-category="industry-insights">Industry Insights</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Posts -->
+        <section class="section section-light">
+            <div class="container">
+                <div class="blog-grid">
+                    <!-- Featured Post -->
+                    <article class="featured-post blog-post" data-category="executive-protection">
+                        <div class="featured-content">
+                            <div class="post-category">Executive Protection</div>
+                            <h2 class="post-title">Executive Protection in the Digital Age: A Comprehensive Guide</h2>
+                            <p class="post-excerpt">
+                                Modern executive protection goes far beyond physical security. In an era where digital privacy breaches can be as damaging as physical threats, comprehensive protection requires a multi-layered approach that addresses both traditional and emerging security challenges.
+                            </p>
+                            <p class="body-professional" style="color: var(--platinum);">
+                                This comprehensive guide explores how Licensed Level IV PPOs adapt traditional protection methodologies to address modern threats including cyber security, social media monitoring, and digital privacy protection while maintaining the discretion and luxury service standards expected by high-profile clientele.
+                            </p>
+                            <div class="post-meta">
+                                <span>By Eula Elite Security Team</span>
+                                <a href="#" class="read-more">Read Full Article →</a>
+                            </div>
+                        </div>
+                        <div class="featured-image">🛡️</div>
+                    </article>
+
+                    <!-- Regular Blog Posts -->
+                    <article class="blog-post" data-category="houston-security">
+                        <div class="post-image">🏙️</div>
+                        <div class="post-content">
+                            <div class="post-category">Houston Security</div>
+                            <h3 class="post-title">Houston's VIP Security Landscape: What High-Profile Individuals Need to Know</h3>
+                            <p class="post-excerpt">
+                                Houston's status as a major business and entertainment hub brings unique security challenges. From the Energy Corridor to the Galleria, understanding the threat landscape is crucial for high-profile individuals.
+                            </p>
+                            <div class="post-meta">
+                                <span>December 1, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="lifestyle-integration">
+                        <div class="post-image">🎭</div>
+                        <div class="post-content">
+                            <div class="post-category">Lifestyle Integration</div>
+                            <h3 class="post-title">The Psychology of Discrete Protection: Invisible Security That Enhances Your Life</h3>
+                            <p class="post-excerpt">
+                                The best executive protection is invisible to everyone except the threat. True professionals understand that effective security enhances rather than restricts their client's lifestyle.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 28, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="threat-assessment">
+                        <div class="post-image">📊</div>
+                        <div class="post-content">
+                            <div class="post-category">Threat Assessment</div>
+                            <h3 class="post-title">Advanced Threat Assessment: Identifying Risks Before They Materialize</h3>
+                            <p class="post-excerpt">
+                                Proactive threat assessment is the cornerstone of effective executive protection. Learn how Level IV PPOs identify, evaluate, and neutralize potential security risks.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 25, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="industry-insights">
+                        <div class="post-image">🎬</div>
+                        <div class="post-content">
+                            <div class="post-category">Industry Insights</div>
+                            <h3 class="post-title">Celebrity Protection Case Studies: Lessons from High-Profile Security Operations</h3>
+                            <p class="post-excerpt">
+                                Analyzing successful celebrity protection operations reveals key strategies for maintaining security while preserving public image and career demands.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 22, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="executive-protection">
+                        <div class="post-image">✈️</div>
+                        <div class="post-content">
+                            <div class="post-category">Executive Protection</div>
+                            <h3 class="post-title">Luxury Travel Security: Protecting High-Net-Worth Individuals in Transit</h3>
+                            <p class="post-excerpt">
+                                Travel presents unique security challenges for high-profile individuals. From private jets to luxury hotels, comprehensive protection requires detailed planning and coordination.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 20, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="houston-security">
+                        <div class="post-image">🏛️</div>
+                        <div class="post-content">
+                            <div class="post-category">Houston Security</div>
+                            <h3 class="post-title">VIP Event Security in Houston: Coordinating Protection for High-Profile Gatherings</h3>
+                            <p class="post-excerpt">
+                                Houston's vibrant social scene requires sophisticated security coordination. Learn how professional PPOs ensure safety at galas, premieres, and exclusive events.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 18, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="threat-assessment">
+                        <div class="post-image">🔒</div>
+                        <div class="post-content">
+                            <div class="post-category">Threat Assessment</div>
+                            <h3 class="post-title">Digital Privacy Protection: Securing Your Online Presence and Personal Information</h3>
+                            <p class="post-excerpt">
+                                Digital threats can compromise physical security. Professional protection now includes comprehensive digital privacy and cyber security measures.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 15, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="lifestyle-integration">
+                        <div class="post-image">🏡</div>
+                        <div class="post-content">
+                            <div class="post-category">Lifestyle Integration</div>
+                            <h3 class="post-title">Family Protection Strategies: Extending Security to Loved Ones</h3>
+                            <p class="post-excerpt">
+                                High-profile individuals must consider the security of their families. Learn how professional protection extends to spouses, children, and extended family members.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 12, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="industry-insights">
+                        <div class="post-image">⚖️</div>
+                        <div class="post-content">
+                            <div class="post-category">Industry Insights</div>
+                            <h3 class="post-title">Level IV PPO Licensing: Understanding Texas' Highest Security Certification</h3>
+                            <p class="post-excerpt">
+                                What does Level IV PPO licensing mean, and why is it crucial for executive protection? Understanding the legal authority and training requirements.
+                            </p>
+                            <div class="post-meta">
+                                <span>November 10, 2024</span>
+                                <a href="#" class="read-more">Read More →</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div class="newsletter-signup">
+                    <h2 class="headline-section" style="color: var(--champagne-gold);">Stay Informed</h2>
+                    <p class="body-professional" style="color: var(--platinum); font-size: var(--text-lg);">
+                        Receive exclusive security insights, threat intelligence updates, and industry analysis from our Licensed Level IV Personal Protection Officers.
+                    </p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your secure email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe to Insights</button>
+                    </form>
+                    <p style="font-size: var(--text-sm); color: var(--platinum); margin-top: var(--spacing-md);">
+                        All communications are encrypted and your privacy is protected by our confidentiality protocols.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Eula Elite Security & Transport</h3>
+                <p>Licensed Level IV Personal Protection Officers providing Fortune 500-caliber security services for Houston's elite community.</p>
+                <p style="color: var(--champagne-gold); margin-top: var(--spacing-md);">
+                    <strong>"Where Elite Travel Meets Absolute Protection"</strong>
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Latest Insights</h3>
+                <ul style="list-style: none;">
+                    <li><a href="#">Executive Protection in the Digital Age</a></li>
+                    <li><a href="#">Houston VIP Security Landscape</a></li>
+                    <li><a href="#">Psychology of Discrete Protection</a></li>
+                    <li><a href="#">Advanced Threat Assessment</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul style="list-style: none;">
+                    <li><strong style="color: var(--ruby-red);">Emergency: (713) 555-1234</strong></li>
+                    <li>Consultation: (713) 555-5678</li>
+                    <li>Email: <a href="mailto:secure@eulalite.com">secure@eulalite.com</a></li>
+                    <li><a href="contact.html">Secure Contact Form</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul style="list-style: none;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about.html#leadership">Leadership</a></li>
+                    <li><a href="about.html#licensing">PPO Licensing</a></li>
+                    <li><a href="services.html">Protection Services</a></li>
+                    <li><a href="http://localhost:3001" target="_blank">Client Portal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Eula Elite Security & Transport. All rights reserved. Licensed Level IV Personal Protection Officers.</p>
+            <p style="margin-top: var(--spacing-xs); font-size: var(--text-sm);">
+                Texas Private Security License #XXXX | Fully Insured & Bonded | Confidentiality Guaranteed
+            </p>
+        </div>
+    </footer>
+
+    <script src="../public/js/main.js"></script>
+</body>
+</html>

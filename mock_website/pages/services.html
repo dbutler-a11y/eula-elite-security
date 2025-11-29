@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Protection Services - Eula Elite Security & Transport</title>
+    <meta name="description" content="Daily $3K, Weekly $12K, Monthly $25K protection packages. Licensed Level IV PPOs providing luxury security services in Houston.">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="icon" type="image/svg+xml" href="http://localhost:8080/logo-mark.svg">
+    <style>
+        .service-detail {
+            background: var(--pearl-white);
+            border-radius: 12px;
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--champagne-gold);
+        }
+        
+        .price-highlight {
+            background: linear-gradient(135deg, var(--champagne-gold), var(--warm-gold));
+            color: var(--onyx-black);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            font-size: var(--text-2xl);
+        }
+        
+        .ideal-for {
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid var(--emerald-green);
+            border-radius: 8px;
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            border: 1px solid var(--champagne-gold);
+        }
+        
+        .step-number {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto var(--spacing-sm);
+        }
+        
+        .quote-calculator {
+            background: var(--onyx-black);
+            color: var(--platinum);
+            padding: var(--spacing-xl);
+            border-radius: 12px;
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .calculator-form {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            background: var(--midnight-blue);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .radio-option:hover {
+            border-color: var(--champagne-gold);
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-right: var(--spacing-xs);
+        }
+        
+        .radio-option input[type="radio"]:checked + .radio-content {
+            color: var(--champagne-gold);
+        }
+        
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+        }
+        
+        .addon-option {
+            background: var(--midnight-blue);
+            padding: var(--spacing-sm);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .addon-option:hover {
+            border-color: var(--champagne-gold);
+        }
+        
+        .addon-option input[type="checkbox"]:checked + .addon-content {
+            color: var(--champagne-gold);
+        }
+        
+        #quote-display {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin-top: var(--spacing-md);
+            display: none;
+        }
+        
+        .quote-total {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            text-align: center;
+            margin: var(--spacing-sm) 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Eula Elite</a>
+            <ul class="main-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link active">Services</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="blog.html" class="nav-link">Insights</a></li>
+                <li><a href="tel:+17135551234" class="btn btn-emergency">Emergency: (713) 555-1234</a></li>
+            </ul>
+            <button class="menu-toggle">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="services-hero" style="min-height: 60vh;">
+            <div class="hero-content">
+                <h1 class="headline-hero">Elite Protection Services</h1>
+                <p class="hero-subtitle">Daily $3,000 | Weekly $12,000 | Monthly $25,000</p>
+                <p class="body-professional" style="color: var(--platinum); font-size: var(--text-xl);">
+                    Licensed Level IV Personal Protection Officers providing luxury security tailored to your lifestyle and requirements.
+                </p>
+            </div>
+        </section>
+
+        <!-- Quick Service Overview -->
+        <section class="section section-light">
+            <div class="container text-center">
+                <h2 class="headline-section">Protection Packages Overview</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-price">$3,000</div>
+                        <h3 class="service-title">Elite Daily Protection</h3>
+                        <p>Perfect for special events and VIP occasions</p>
+                        <a href="#daily" class="btn btn-secondary">View Details</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-price">$12,000</div>
+                        <h3 class="service-title">Weekly Executive Retainer</h3>
+                        <p>Complete security integration for extended periods</p>
+                        <a href="#weekly" class="btn btn-secondary">View Details</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-price">$25,000</div>
+                        <h3 class="service-title">Monthly Elite Membership</h3>
+                        <p>Unlimited access to premier protection services</p>
+                        <a href="#monthly" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Protection Service -->
+        <section class="section section-dark" id="daily">
+            <div class="container">
+                <div class="service-detail" style="background: var(--midnight-blue); color: var(--platinum);">
+                    <div class="price-highlight">Elite Daily Protection - Starting from $3,000</div>
+                    <h2 class="headline-section" style="color: var(--champagne-gold);">Perfect for special events and occasions requiring discrete, professional protection</h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); margin: var(--spacing-lg) 0;">
+                        <div>
+                            <h3 style="color: var(--champagne-gold); margin-bottom: var(--spacing-md);">What's Included</h3>
+                            <ul class="service-features" style="color: var(--platinum);">
+                                <li>Licensed Level IV Personal Protection Officer</li>
+                                <li>Luxury black SUV (Escalade/Suburban) or Rolls Royce upgrade available</li>
+                                <li>Advanced route planning and threat assessment</li>
+                                <li>Discrete lifestyle coordination</li>
+                                <li>24/7 command center monitoring</li>
+                                <li>Professional coordination with venue security</li>
+                                <li>Emergency response protocols</li>
+                                <li>Comprehensive liability insurance coverage</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="ideal-for">
+                            <h3 style="color: var(--emerald-green); margin-bottom: var(--spacing-sm);">Ideal For</h3>
+                            <ul style="color: var(--charcoal-gray); list-style: none; padding-left: 0;">
+                                <li>✓ VIP events and premieres</li>
+                                <li>✓ High-stakes business meetings</li>
+                                <li>✓ Luxury shopping and dining</li>
+                                <li>✓ Private parties and gatherings</li>
+                                <li>✓ Airport transfers and travel coordination</li>
+                                <li>✓ Court appearances or legal proceedings</li>
+                                <li>✓ Medical appointments requiring privacy</li>
+                                <li>✓ Family special occasions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h3 style="color: var(--champagne-gold); margin-bottom: var(--spacing-md);">Service Process</h3>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <h4>Confidential Consultation</h4>
+                            <p>We assess your specific needs and risk factors</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <h4>Custom Security Plan</h4>
+                            <p>Tailored protection strategy for your event or day</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <h4>Officer Assignment</h4>
+                            <p>Matched with the perfect protection professional</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <h4>Seamless Execution</h4>
+                            <p>Discrete, professional protection throughout</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center" style="margin-top: var(--spacing-lg);">
+                        <a href="contact.html?service=daily" class="btn btn-primary">Request Daily Protection Quote</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weekly Retainer Service -->
+        <section class="section section-light" id="weekly">
+            <div class="container">
+                <div class="service-detail">
+                    <div class="price-highlight">Weekly Executive Retainer - Starting from $12,000</div>
+                    <h2 class="headline-section">Complete security integration for extended stays or high-visibility periods</h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); margin: var(--spacing-lg) 0;">
+                        <div>
+                            <h3 style="color: var(--steel-blue); margin-bottom: var(--spacing-md);">What's Included</h3>
+                            <ul class="service-features">
+                                <li>Dedicated Licensed Level IV PPO team</li>
+                                <li>Premium vehicle fleet access (luxury SUVs + Rolls Royce options)</li>
+                                <li>Complete lifestyle and security coordination</li>
+                                <li>Advanced threat monitoring and intelligence</li>
+                                <li>24/7 emergency response protocols</li>
+                                <li>Event security planning and coordination</li>
+                                <li>Travel security arrangements</li>
+                                <li>Family protection extensions available</li>
+                                <li>Venue security assessments</li>
+                                <li>Emergency evacuation planning</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="ideal-for">
+                            <h3 style="color: var(--emerald-green); margin-bottom: var(--spacing-sm);">Perfect For</h3>
+                            <ul style="color: var(--charcoal-gray); list-style: none; padding-left: 0;">
+                                <li>✓ Touring artists and performers</li>
+                                <li>✓ Professional athletes during season</li>
+                                <li>✓ Executives during high-stakes periods</li>
+                                <li>✓ Families during elevated risk times</li>
+                                <li>✓ Extended Houston area stays</li>
+                                <li>✓ Corporate leadership visits</li>
+                                <li>✓ Celebrity appearances and tours</li>
+                                <li>✓ High-profile legal proceedings</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--onyx-black); color: var(--platinum); padding: var(--spacing-lg); border-radius: 8px; margin: var(--spacing-lg) 0;">
+                        <h3 style="color: var(--champagne-gold); margin-bottom: var(--spacing-md);">Our Promise</h3>
+                        <p class="body-professional" style="font-size: var(--text-xl); color: var(--platinum);">
+                            "During your retainer period, you have complete access to Houston's most sophisticated executive protection service. From discrete restaurant reservations to emergency response, we ensure your week unfolds exactly as planned."
+                        </p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="contact.html?service=weekly" class="btn btn-primary">Secure Weekly Protection</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monthly Elite Membership -->
+        <section class="section section-dark" id="monthly">
+            <div class="container">
+                <div class="service-detail" style="background: var(--midnight-blue); color: var(--platinum);">
+                    <div class="price-highlight">Monthly Elite Membership - Starting from $25,000</div>
+                    <h2 class="headline-section" style="color: var(--champagne-gold);">The ultimate in Houston executive protection and lifestyle coordination</h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); margin: var(--spacing-lg) 0;">
+                        <div>
+                            <h3 style="color: var(--champagne-gold); margin-bottom: var(--spacing-md);">What's Included</h3>
+                            <ul class="service-features" style="color: var(--platinum);">
+                                <li>Unlimited access to Licensed Level IV PPO services</li>
+                                <li>Dedicated luxury vehicle fleet access</li>
+                                <li>Priority emergency response (guaranteed &lt;15 minute deployment)</li>
+                                <li>Complete lifestyle concierge integration</li>
+                                <li>Event security coordination and planning</li>
+                                <li>Advanced threat intelligence and monitoring</li>
+                                <li>VIP venue security assessment and coordination</li>
+                                <li>24/7 family protection services</li>
+                                <li>Corporate event security management</li>
+                                <li>International travel coordination</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: var(--champagne-gold); margin-bottom: var(--spacing-md);">Exclusive Member Benefits</h3>
+                            <ul class="service-features" style="color: var(--platinum);">
+                                <li>Private jet security coordination</li>
+                                <li>Armored vehicle access for high-risk situations</li>
+                                <li>Group security teams for entourage protection</li>
+                                <li>Yacht and maritime security services</li>
+                                <li>Residential security assessments</li>
+                                <li>Digital security and privacy consulting</li>
+                                <li>Emergency medical coordination</li>
+                                <li>Crisis management and PR support</li>
+                                <li>Exclusive member networking events</li>
+                                <li>Priority booking during peak seasons</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--champagne-gold); color: var(--onyx-black); padding: var(--spacing-lg); border-radius: 8px; margin: var(--spacing-lg) 0;">
+                        <h3 style="margin-bottom: var(--spacing-md);">Member Experience</h3>
+                        <p class="body-professional" style="font-size: var(--text-xl);">
+                            "As an Elite Member, you're not just a client—you're part of an exclusive community that demands the highest standards of protection and service. Every detail is handled with the discretion and professionalism you expect."
+                        </p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="contact.html?service=monthly" class="btn btn-primary">Apply for Elite Membership</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Calculator -->
+        <section class="section section-light" id="calculator">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="headline-section">Protection Investment Calculator</h2>
+                    <p class="subheadline-luxury">Get an instant estimate for your security requirements</p>
+                </div>
+
+                <div class="quote-calculator">
+                    <form id="quote-calculator" class="calculator-form">
+                        <div>
+                            <h3 style="color: var(--champagne-gold); margin-bottom: var(--spacing-md);">Select Service Type</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="service_type" value="daily" checked>
+                                    <div class="radio-content">
+                                        <strong>Daily Protection</strong><br>
+                                        <span>$3,000/day</span>
+                                    </div>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="service_type" value="weekly">
+                                    <div class="radio-content">
+                                        <strong>Weekly Retainer</strong><br>
+                                        <span>$12,000/week</span>
+                                    </div>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="service_type" value="monthly">
+                                    <div class="radio-content">
+                                        <strong>Monthly Membership</strong><br>
+                                        <span>$25,000/month</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="duration" style="color: var(--champagne-gold); display: block; margin-bottom: var(--spacing-sm);">Duration (number of periods)</label>
+                            <input type="range" id="duration" name="duration" min="1" max="12" value="1" 
+                                   style="width: 100%; margin-bottom: var(--spacing-sm);">
+                            <div style="display: flex; justify-content: space-between; color: var(--platinum);">
+                                <span>1</span>
+                                <span id="duration-display">1</span>
+                                <span>12</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 style="color: var(--champagne-gold); margin-bottom: var(--spacing-md);">Additional Services</h3>
+                            <div class="addon-grid">
+                                <label class="addon-option">
+                                    <input type="checkbox" name="addons" value="armored_vehicle">
+                                    <div class="addon-content">
+                                        <strong>Armored Vehicle</strong><br>
+                                        <span>+$500/period</span>
+                                    </div>
+                                </label>
+                                <label class="addon-option">
+                                    <input type="checkbox" name="addons" value="additional_officers">
+                                    <div class="addon-content">
+                                        <strong>Additional Officers</strong><br>
+                                        <span>+$1,000/period</span>
+                                    </div>
+                                </label>
+                                <label class="addon-option">
+                                    <input type="checkbox" name="addons" value="event_coordination">
+                                    <div class="addon-content">
+                                        <strong>Event Coordination</strong><br>
+                                        <span>+$750/period</span>
+                                    </div>
+                                </label>
+                                <label class="addon-option">
+                                    <input type="checkbox" name="addons" value="travel_security">
+                                    <div class="addon-content">
+                                        <strong>Travel Security</strong><br>
+                                        <span>+$1,200/period</span>
+                                    </div>
+                                </label>
+                                <label class="addon-option">
+                                    <input type="checkbox" name="addons" value="family_protection">
+                                    <div class="addon-content">
+                                        <strong>Family Protection</strong><br>
+                                        <span>+$800/period</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="quote-display"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fleet Information -->
+        <section class="section section-dark" id="fleet">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="headline-section text-gold">Luxury Vehicle Fleet</h2>
+                    <p class="subheadline-luxury">Transportation that matches your status and security requirements</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card" style="background: var(--midnight-blue); color: var(--platinum);">
+                        <h3 class="service-title" style="color: var(--champagne-gold);">Executive SUVs</h3>
+                        <div class="trust-icon" style="font-size: 3rem;">🚙</div>
+                        <ul class="service-features" style="color: var(--platinum);">
+                            <li>Cadillac Escalade ESV</li>
+                            <li>Chevrolet Suburban</li>
+                            <li>Mercedes-Benz GLS-Class</li>
+                            <li>BMW X7</li>
+                            <li>Bulletproof options available</li>
+                        </ul>
+                        <p style="color: var(--champagne-gold); font-style: italic;">Perfect for daily protection and group transportation</p>
+                    </div>
+
+                    <div class="service-card" style="background: var(--midnight-blue); color: var(--platinum);">
+                        <h3 class="service-title" style="color: var(--champagne-gold);">Luxury Sedans</h3>
+                        <div class="trust-icon" style="font-size: 3rem;">🚗</div>
+                        <ul class="service-features" style="color: var(--platinum);">
+                            <li>Rolls-Royce Ghost</li>
+                            <li>Mercedes-Benz S-Class</li>
+                            <li>BMW 7 Series</li>
+                            <li>Genesis G90</li>
+                            <li>Discrete armoring available</li>
+                        </ul>
+                        <p style="color: var(--champagne-gold); font-style: italic;">Ultimate luxury for VIP occasions and executive transport</p>
+                    </div>
+
+                    <div class="service-card" style="background: var(--midnight-blue); color: var(--platinum);">
+                        <h3 class="service-title" style="color: var(--champagne-gold);">Specialty Vehicles</h3>
+                        <div class="trust-icon" style="font-size: 3rem;">🏎️</div>
+                        <ul class="service-features" style="color: var(--platinum);">
+                            <li>Armored personnel carriers</li>
+                            <li>Decoy vehicles for high-threat situations</li>
+                            <li>Motorcycle escort teams</li>
+                            <li>Emergency response vehicles</li>
+                            <li>Custom configurations available</li>
+                        </ul>
+                        <p style="color: var(--champagne-gold); font-style: italic;">Specialized solutions for unique security requirements</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section section-light" id="services-cta">
+            <div class="container text-center">
+                <h2 class="headline-section">Ready to Secure Your Lifestyle?</h2>
+                <p class="body-professional" style="font-size: var(--text-xl); max-width: 800px; margin: 0 auto var(--spacing-xl);">
+                    Our Licensed Level IV Personal Protection Officers are standing by to provide you with a confidential consultation. Discover how our elite protection services can seamlessly integrate into your lifestyle.
+                </p>
+                <div style="display: flex; justify-content: center; gap: var(--spacing-md); flex-wrap: wrap;">
+                    <a href="contact.html" class="btn btn-primary">Schedule Confidential Consultation</a>
+                    <a href="tel:+17135551234" class="btn btn-emergency">Emergency Response: (713) 555-1234</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Eula Elite Security & Transport</h3>
+                <p>Licensed Level IV Personal Protection Officers providing Fortune 500-caliber security services for Houston's elite community.</p>
+                <p style="color: var(--champagne-gold); margin-top: var(--spacing-md);">
+                    <strong>"Where Elite Travel Meets Absolute Protection"</strong>
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul style="list-style: none;">
+                    <li><a href="#daily">Elite Daily Protection</a></li>
+                    <li><a href="#weekly">Weekly Executive Retainer</a></li>
+                    <li><a href="#monthly">Monthly Elite Membership</a></li>
+                    <li><a href="#fleet">Luxury Vehicle Fleet</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul style="list-style: none;">
+                    <li><strong style="color: var(--ruby-red);">Emergency: (713) 555-1234</strong></li>
+                    <li>Consultation: (713) 555-5678</li>
+                    <li>Email: <a href="mailto:secure@eulalite.com">secure@eulalite.com</a></li>
+                    <li><a href="contact.html">Secure Contact Form</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul style="list-style: none;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about.html#leadership">Leadership</a></li>
+                    <li><a href="about.html#licensing">PPO Licensing</a></li>
+                    <li><a href="blog.html">Security Insights</a></li>
+                    <li><a href="http://localhost:3001" target="_blank">Client Portal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Eula Elite Security & Transport. All rights reserved. Licensed Level IV Personal Protection Officers.</p>
+            <p style="margin-top: var(--spacing-xs); font-size: var(--text-sm);">
+                Texas Private Security License #XXXX | Fully Insured & Bonded | Confidentiality Guaranteed
+            </p>
+        </div>
+    </footer>
+
+    <script src="../public/js/main.js"></script>
+    <script>
+        // Duration slider display update
+        document.getElementById('duration').addEventListener('input', function() {
+            document.getElementById('duration-display').textContent = this.value;
+        });
+    </script>
+</body>
+</html>

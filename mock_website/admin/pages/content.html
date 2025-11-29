@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management System - Eula Elite Admin</title>
+    <link rel="stylesheet" href="../public/css/admin.css">
+    <link rel="icon" type="image/svg+xml" href="/logo-mark.svg">
+    <style>
+        .cms-dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--spacing-lg);
+            height: calc(100vh - 200px);
+        }
+
+        .content-sidebar {
+            background: white;
+            border: 2px solid var(--champagne-gold);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, var(--steel-blue), var(--midnight-blue));
+            color: white;
+            padding: var(--spacing-md);
+            font-weight: 600;
+        }
+
+        .content-types {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .content-type {
+            border-bottom: 1px solid var(--admin-border);
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-type:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .content-type.active {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+        }
+
+        .content-count {
+            background: var(--steel-blue);
+            color: white;
+            font-size: var(--text-xs);
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .content-type.active .content-count {
+            background: var(--onyx-black);
+            color: white;
+        }
+
+        .content-main {
+            background: white;
+            border: 2px solid var(--champagne-gold);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-header {
+            background: linear-gradient(135deg, var(--champagne-gold), var(--warm-gold));
+            color: var(--onyx-black);
+            padding: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .create-btn {
+            background: var(--emerald-green);
+            color: white;
+        }
+
+        .create-btn:hover {
+            background: #219a52;
+            transform: translateY(-1px);
+        }
+
+        .import-btn {
+            background: var(--sapphire-blue);
+            color: white;
+        }
+
+        .settings-btn {
+            background: var(--charcoal-gray);
+            color: white;
+        }
+
+        .content-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-md);
+        }
+
+        .content-item {
+            border: 1px solid var(--admin-border);
+            border-radius: 10px;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .content-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+
+        .content-item-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .content-item-title {
+            font-weight: 600;
+            color: var(--steel-blue);
+            flex: 1;
+            margin-right: var(--spacing-sm);
+        }
+
+        .content-status {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: var(--text-xs);
+            font-weight: 500;
+        }
+
+        .status-published {
+            background: var(--emerald-green);
+            color: white;
+        }
+
+        .status-draft {
+            background: var(--amber-warning);
+            color: var(--onyx-black);
+        }
+
+        .status-scheduled {
+            background: var(--sapphire-blue);
+            color: white;
+        }
+
+        .content-item-meta {
+            font-size: var(--text-sm);
+            color: var(--charcoal-gray);
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .content-item-excerpt {
+            margin-top: var(--spacing-xs);
+            font-size: var(--text-sm);
+            color: var(--charcoal-gray);
+            line-height: 1.4;
+        }
+
+        .content-item-actions {
+            margin-top: var(--spacing-sm);
+            display: flex;
+            gap: 8px;
+        }
+
+        .item-action {
+            background: none;
+            border: 1px solid var(--admin-border);
+            padding: 4px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: var(--text-xs);
+            transition: all 0.2s ease;
+        }
+
+        .edit-action {
+            border-color: var(--sapphire-blue);
+            color: var(--sapphire-blue);
+        }
+
+        .edit-action:hover {
+            background: var(--sapphire-blue);
+            color: white;
+        }
+
+        .delete-action {
+            border-color: var(--ruby-red);
+            color: var(--ruby-red);
+        }
+
+        .delete-action:hover {
+            background: var(--ruby-red);
+            color: white;
+        }
+
+        .duplicate-action {
+            border-color: var(--champagne-gold);
+            color: var(--champagne-gold);
+        }
+
+        .duplicate-action:hover {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+        }
+
+        /* Editor Modal */
+        .editor-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+        }
+
+        .editor-container {
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            height: 90%;
+            margin: 5% auto;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-header {
+            background: linear-gradient(135deg, var(--steel-blue), var(--midnight-blue));
+            color: white;
+            padding: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .editor-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-fields {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--admin-border);
+        }
+
+        .field-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .field-row {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .field-row .field-group {
+            flex: 1;
+        }
+
+        .field-label {
+            display: block;
+            font-weight: 600;
+            color: var(--steel-blue);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid var(--admin-border);
+            border-radius: 8px;
+            font-family: var(--font-professional);
+            transition: border-color 0.2s ease;
+        }
+
+        .field-input:focus {
+            outline: none;
+            border-color: var(--champagne-gold);
+        }
+
+        .editor-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-toolbar {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: #f5f5f5;
+            border-bottom: 1px solid var(--admin-border);
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            background: white;
+            border: 1px solid var(--admin-border);
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: var(--text-sm);
+            transition: all 0.2s ease;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+        }
+
+        .toolbar-btn.active {
+            background: var(--steel-blue);
+            color: white;
+        }
+
+        .editor-textarea {
+            flex: 1;
+            padding: var(--spacing-md);
+            border: none;
+            font-family: var(--font-professional);
+            font-size: var(--text-base);
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+        }
+
+        .editor-footer {
+            padding: var(--spacing-md);
+            background: #f5f5f5;
+            border-top: 1px solid var(--admin-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-status {
+            font-size: var(--text-sm);
+            color: var(--charcoal-gray);
+        }
+
+        .save-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .save-btn {
+            background: var(--emerald-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .save-btn:hover {
+            background: #219a52;
+        }
+
+        .publish-btn {
+            background: var(--champagne-gold);
+            color: var(--onyx-black);
+        }
+
+        .publish-btn:hover {
+            background: var(--warm-gold);
+        }
+
+        .no-content {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--charcoal-gray);
+        }
+
+        .no-content-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        @media (max-width: 768px) {
+            .cms-dashboard {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
+
+            .editor-container {
+                width: 95%;
+                height: 95%;
+                margin: 2.5% auto;
+            }
+
+            .field-row {
+                flex-direction: column;
+            }
+
+            .editor-toolbar {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="header-content">
+                <h1 class="admin-title">📝 Content Management System</h1>
+                <div class="admin-nav">
+                    <a href="index.html" class="nav-link">Dashboard</a>
+                    <a href="clients.html" class="nav-link">Clients</a>
+                    <a href="bookings.html" class="nav-link">Bookings</a>
+                    <a href="ppo.html" class="nav-link">PPO Management</a>
+                    <a href="chat.html" class="nav-link">Live Chat</a>
+                    <a href="content.html" class="nav-link active">Content</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <div class="cms-dashboard">
+                <div class="content-sidebar">
+                    <div class="sidebar-header">
+                        Content Types
+                    </div>
+                    <ul class="content-types">
+                        <li class="content-type active" data-type="blog">
+                            <span>📰 Blog Posts</span>
+                            <span class="content-count" id="blog-count">0</span>
+                        </li>
+                        <li class="content-type" data-type="pages">
+                            <span>📄 Pages</span>
+                            <span class="content-count" id="pages-count">0</span>
+                        </li>
+                        <li class="content-type" data-type="services">
+                            <span>🛡️ Services</span>
+                            <span class="content-count" id="services-count">0</span>
+                        </li>
+                        <li class="content-type" data-type="testimonials">
+                            <span>💬 Testimonials</span>
+                            <span class="content-count" id="testimonials-count">0</span>
+                        </li>
+                        <li class="content-type" data-type="media">
+                            <span>🖼️ Media Library</span>
+                            <span class="content-count" id="media-count">0</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-main">
+                    <div class="content-header">
+                        <div class="content-title" id="content-type-title">Blog Posts</div>
+                        <div class="content-actions">
+                            <button class="action-btn create-btn" onclick="openEditor()">
+                                ➕ Create New
+                            </button>
+                            <button class="action-btn import-btn" onclick="importContent()">
+                                📥 Import
+                            </button>
+                            <button class="action-btn settings-btn" onclick="openSettings()">
+                                ⚙️ Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="content-list" id="content-list">
+                        <!-- Content items will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Editor Modal -->
+    <div class="editor-modal" id="editor-modal">
+        <div class="editor-container">
+            <div class="editor-header">
+                <div class="editor-title" id="editor-title">Create New Blog Post</div>
+                <div class="editor-actions">
+                    <button class="action-btn" onclick="previewContent()">👁️ Preview</button>
+                    <button class="action-btn" onclick="closeEditor()">✖️ Close</button>
+                </div>
+            </div>
+
+            <form class="editor-form" id="editor-form">
+                <div class="editor-fields">
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label" for="content-title-input">Title *</label>
+                            <input type="text" id="content-title-input" name="title" class="field-input" required>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="content-slug">URL Slug</label>
+                            <input type="text" id="content-slug" name="slug" class="field-input">
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label" for="content-status">Status</label>
+                            <select id="content-status" name="status" class="field-input">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                                <option value="scheduled">Scheduled</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="content-category">Category</label>
+                            <select id="content-category" name="category" class="field-input">
+                                <option value="security-tips">Security Tips</option>
+                                <option value="industry-news">Industry News</option>
+                                <option value="company-updates">Company Updates</option>
+                                <option value="case-studies">Case Studies</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="content-excerpt">Excerpt</label>
+                        <textarea id="content-excerpt" name="excerpt" class="field-input" rows="2" placeholder="Brief description of the content..."></textarea>
+                    </div>
+                </div>
+
+                <div class="editor-content">
+                    <div class="editor-toolbar">
+                        <button type="button" class="toolbar-btn" onclick="formatText('bold')"><strong>B</strong></button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('italic')"><em>I</em></button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('underline')"><u>U</u></button>
+                        <button type="button" class="toolbar-btn" onclick="insertHeading()">H1</button>
+                        <button type="button" class="toolbar-btn" onclick="insertList('ul')">• List</button>
+                        <button type="button" class="toolbar-btn" onclick="insertList('ol')">1. List</button>
+                        <button type="button" class="toolbar-btn" onclick="insertLink()">🔗 Link</button>
+                        <button type="button" class="toolbar-btn" onclick="insertImage()">🖼️ Image</button>
+                        <button type="button" class="toolbar-btn" onclick="insertCode()">💻 Code</button>
+                    </div>
+
+                    <textarea id="content-body" name="body" class="editor-textarea" placeholder="Start writing your content here..."></textarea>
+                </div>
+
+                <div class="editor-footer">
+                    <div class="editor-status" id="editor-status">
+                        Word count: <span id="word-count">0</span> | 
+                        Last saved: <span id="last-saved">Never</span>
+                    </div>
+                    <div class="save-actions">
+                        <button type="button" class="save-btn" onclick="saveContent('draft')">💾 Save Draft</button>
+                        <button type="button" class="save-btn publish-btn" onclick="saveContent('published')">🚀 Publish</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Content Management System
+        class ContentManager {
+            constructor() {
+                this.currentType = 'blog';
+                this.currentContent = null;
+                this.content = {
+                    blog: [],
+                    pages: [],
+                    services: [],
+                    testimonials: [],
+                    media: []
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.attachEventListeners();
+                this.loadContent();
+                this.initEditor();
+            }
+
+            attachEventListeners() {
+                // Content type navigation
+                document.querySelectorAll('.content-type').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const type = e.currentTarget.dataset.type;
+                        this.switchContentType(type);
+                    });
+                });
+
+                // Auto-save functionality
+                setInterval(() => {
+                    if (this.currentContent && this.hasUnsavedChanges()) {
+                        this.autoSave();
+                    }
+                }, 30000); // Auto-save every 30 seconds
+            }
+
+            switchContentType(type) {
+                this.currentType = type;
+                
+                // Update active state
+                document.querySelectorAll('.content-type').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`[data-type="${type}"]`).classList.add('active');
+                
+                // Update title
+                const titles = {
+                    blog: 'Blog Posts',
+                    pages: 'Pages',
+                    services: 'Services',
+                    testimonials: 'Testimonials',
+                    media: 'Media Library'
+                };
+                document.getElementById('content-type-title').textContent = titles[type];
+                
+                // Load content for this type
+                this.displayContent(type);
+            }
+
+            loadContent() {
+                // Load initial demo content
+                this.content.blog = [
+                    {
+                        id: '1',
+                        title: 'Executive Protection Best Practices for 2024',
+                        slug: 'executive-protection-best-practices-2024',
+                        status: 'published',
+                        category: 'security-tips',
+                        excerpt: 'Essential security protocols every executive should know...',
+                        body: 'In an increasingly complex threat landscape, executive protection requires a multi-layered approach...',
+                        author: 'PPO Team',
+                        created: '2024-01-15T10:00:00Z',
+                        modified: '2024-01-15T10:00:00Z',
+                        wordCount: 1250
+                    },
+                    {
+                        id: '2',
+                        title: 'Houston Security Landscape Analysis',
+                        slug: 'houston-security-landscape-analysis',
+                        status: 'draft',
+                        category: 'industry-news',
+                        excerpt: 'Comprehensive analysis of security trends in Houston...',
+                        body: 'Houston\'s dynamic business environment presents unique security challenges...',
+                        author: 'Security Analyst',
+                        created: '2024-01-14T15:30:00Z',
+                        modified: '2024-01-14T15:30:00Z',
+                        wordCount: 890
+                    },
+                    {
+                        id: '3',
+                        title: 'New Level IV PPO Certifications Completed',
+                        slug: 'new-level-iv-ppo-certifications',
+                        status: 'scheduled',
+                        category: 'company-updates',
+                        excerpt: 'Our team has expanded with newly certified Level IV officers...',
+                        body: 'We are proud to announce the successful completion of Level IV certifications...',
+                        author: 'Management',
+                        created: '2024-01-13T09:00:00Z',
+                        modified: '2024-01-13T09:00:00Z',
+                        wordCount: 650
+                    }
+                ];
+
+                // Update counts
+                this.updateContentCounts();
+                this.displayContent(this.currentType);
+            }
+
+            updateContentCounts() {
+                Object.keys(this.content).forEach(type => {
+                    const count = this.content[type].length;
+                    const countEl = document.getElementById(`${type}-count`);
+                    if (countEl) {
+                        countEl.textContent = count;
+                    }
+                });
+            }
+
+            displayContent(type) {
+                const contentList = document.getElementById('content-list');
+                const items = this.content[type] || [];
+
+                if (items.length === 0) {
+                    contentList.innerHTML = `
+                        <div class="no-content">
+                            <div class="no-content-icon">📄</div>
+                            <h3>No ${type} content yet</h3>
+                            <p>Create your first ${type} item to get started.</p>
+                            <button class="action-btn create-btn" onclick="contentManager.openEditor()">
+                                ➕ Create New ${type.charAt(0).toUpperCase() + type.slice(1, -1)}
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const itemsHTML = items.map(item => `
+                    <div class="content-item" onclick="contentManager.editContent('${item.id}')">
+                        <div class="content-item-header">
+                            <div class="content-item-title">${item.title}</div>
+                            <div class="content-status status-${item.status}">${item.status}</div>
+                        </div>
+                        <div class="content-item-meta">
+                            <span>📅 ${new Date(item.created).toLocaleDateString()}</span>
+                            <span>👤 ${item.author}</span>
+                            <span>📝 ${item.wordCount} words</span>
+                        </div>
+                        <div class="content-item-excerpt">${item.excerpt}</div>
+                        <div class="content-item-actions" onclick="event.stopPropagation()">
+                            <button class="item-action edit-action" onclick="contentManager.editContent('${item.id}')">Edit</button>
+                            <button class="item-action duplicate-action" onclick="contentManager.duplicateContent('${item.id}')">Duplicate</button>
+                            <button class="item-action delete-action" onclick="contentManager.deleteContent('${item.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                contentList.innerHTML = itemsHTML;
+            }
+
+            openEditor(contentId = null) {
+                const modal = document.getElementById('editor-modal');
+                const title = document.getElementById('editor-title');
+                const form = document.getElementById('editor-form');
+                
+                if (contentId) {
+                    // Edit existing content
+                    this.currentContent = this.findContent(contentId);
+                    title.textContent = `Edit: ${this.currentContent.title}`;
+                    this.populateEditor(this.currentContent);
+                } else {
+                    // Create new content
+                    this.currentContent = null;
+                    title.textContent = `Create New ${this.currentType.charAt(0).toUpperCase() + this.currentType.slice(1, -1)}`;
+                    form.reset();
+                }
+                
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Focus on title input
+                setTimeout(() => {
+                    document.getElementById('content-title-input').focus();
+                }, 100);
+            }
+
+            closeEditor() {
+                if (this.hasUnsavedChanges()) {
+                    const confirmed = confirm('You have unsaved changes. Are you sure you want to close?');
+                    if (!confirmed) return;
+                }
+                
+                const modal = document.getElementById('editor-modal');
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                this.currentContent = null;
+            }
+
+            initEditor() {
+                const titleInput = document.getElementById('content-title-input');
+                const slugInput = document.getElementById('content-slug');
+                const bodyTextarea = document.getElementById('content-body');
+                
+                // Auto-generate slug from title
+                titleInput.addEventListener('input', () => {
+                    const slug = this.generateSlug(titleInput.value);
+                    slugInput.value = slug;
+                });
+                
+                // Word count update
+                bodyTextarea.addEventListener('input', () => {
+                    this.updateWordCount();
+                });
+                
+                // Auto-save on content change
+                [titleInput, slugInput, bodyTextarea].forEach(input => {
+                    input.addEventListener('input', () => {
+                        this.markAsModified();
+                    });
+                });
+            }
+
+            generateSlug(title) {
+                return title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '-')
+                    .trim();
+            }
+
+            updateWordCount() {
+                const body = document.getElementById('content-body').value;
+                const wordCount = body.trim() ? body.trim().split(/\s+/).length : 0;
+                document.getElementById('word-count').textContent = wordCount;
+            }
+
+            populateEditor(content) {
+                document.getElementById('content-title-input').value = content.title || '';
+                document.getElementById('content-slug').value = content.slug || '';
+                document.getElementById('content-status').value = content.status || 'draft';
+                document.getElementById('content-category').value = content.category || '';
+                document.getElementById('content-excerpt').value = content.excerpt || '';
+                document.getElementById('content-body').value = content.body || '';
+                
+                this.updateWordCount();
+            }
+
+            saveContent(status = 'draft') {
+                const form = document.getElementById('editor-form');
+                const formData = new FormData(form);
+                const contentData = Object.fromEntries(formData.entries());
+                
+                contentData.status = status;
+                contentData.type = this.currentType;
+                contentData.wordCount = document.getElementById('content-body').value.trim().split(/\s+/).length;
+                
+                if (this.currentContent) {
+                    // Update existing content
+                    contentData.id = this.currentContent.id;
+                    contentData.modified = new Date().toISOString();
+                    this.updateContent(contentData);
+                } else {
+                    // Create new content
+                    contentData.id = Date.now().toString();
+                    contentData.created = new Date().toISOString();
+                    contentData.modified = new Date().toISOString();
+                    contentData.author = 'Admin';
+                    this.createContent(contentData);
+                }
+                
+                this.showNotification(`Content ${status === 'published' ? 'published' : 'saved'} successfully!`, 'success');
+                document.getElementById('last-saved').textContent = new Date().toLocaleTimeString();
+            }
+
+            createContent(contentData) {
+                this.content[this.currentType].unshift(contentData);
+                this.updateContentCounts();
+                this.displayContent(this.currentType);
+                this.closeEditor();
+            }
+
+            updateContent(contentData) {
+                const index = this.content[this.currentType].findIndex(item => item.id === contentData.id);
+                if (index !== -1) {
+                    this.content[this.currentType][index] = { ...this.content[this.currentType][index], ...contentData };
+                    this.displayContent(this.currentType);
+                }
+            }
+
+            editContent(id) {
+                this.openEditor(id);
+            }
+
+            duplicateContent(id) {
+                const content = this.findContent(id);
+                if (content) {
+                    const duplicate = {
+                        ...content,
+                        id: Date.now().toString(),
+                        title: `${content.title} (Copy)`,
+                        slug: `${content.slug}-copy`,
+                        status: 'draft',
+                        created: new Date().toISOString(),
+                        modified: new Date().toISOString()
+                    };
+                    
+                    this.content[this.currentType].unshift(duplicate);
+                    this.updateContentCounts();
+                    this.displayContent(this.currentType);
+                    this.showNotification('Content duplicated successfully!', 'success');
+                }
+            }
+
+            deleteContent(id) {
+                const content = this.findContent(id);
+                if (content && confirm(`Are you sure you want to delete "${content.title}"?`)) {
+                    const index = this.content[this.currentType].findIndex(item => item.id === id);
+                    if (index !== -1) {
+                        this.content[this.currentType].splice(index, 1);
+                        this.updateContentCounts();
+                        this.displayContent(this.currentType);
+                        this.showNotification('Content deleted successfully!', 'success');
+                    }
+                }
+            }
+
+            findContent(id) {
+                return this.content[this.currentType].find(item => item.id === id);
+            }
+
+            hasUnsavedChanges() {
+                // Simple check for unsaved changes
+                return false; // Implement based on form state
+            }
+
+            markAsModified() {
+                // Mark content as having unsaved changes
+            }
+
+            autoSave() {
+                // Auto-save functionality
+                console.log('Auto-saving content...');
+            }
+
+            previewContent() {
+                const title = document.getElementById('content-title-input').value;
+                const body = document.getElementById('content-body').value;
+                
+                if (!title || !body) {
+                    this.showNotification('Please add title and content to preview.', 'warning');
+                    return;
+                }
+                
+                // Open preview in new window
+                const previewWindow = window.open('', '_blank', 'width=800,height=600');
+                previewWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Preview: ${title}</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+                                h1 { color: #2C3E50; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; }
+                                p { line-height: 1.6; }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>${title}</h1>
+                            <div>${body.replace(/\n/g, '</p><p>')}</div>
+                        </body>
+                    </html>
+                `);
+            }
+
+            showNotification(message, type = 'info') {
+                // Create notification
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <span>${message}</span>
+                        <button onclick="this.parentElement.parentElement.remove()">×</button>
+                    </div>
+                `;
+                
+                // Add styles if not present
+                if (!document.getElementById('notification-styles')) {
+                    const styles = document.createElement('style');
+                    styles.id = 'notification-styles';
+                    styles.textContent = `
+                        .notification {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            z-index: 10001;
+                            padding: 15px 20px;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                            animation: slideInRight 0.3s ease;
+                        }
+                        .notification-success { background: #27AE60; color: white; }
+                        .notification-error { background: #C0392B; color: white; }
+                        .notification-warning { background: #F39C12; color: white; }
+                        .notification-info { background: #3498DB; color: white; }
+                        .notification-content { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+                        .notification-content button { background: none; border: none; color: currentColor; cursor: pointer; font-size: 18px; }
+                        @keyframes slideInRight {
+                            from { transform: translateX(100%); opacity: 0; }
+                            to { transform: translateX(0); opacity: 1; }
+                        }
+                    `;
+                    document.head.appendChild(styles);
+                }
+                
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 4 seconds
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 4000);
+            }
+        }
+
+        // Toolbar functions
+        function formatText(command) {
+            const textarea = document.getElementById('content-body');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const selectedText = textarea.value.substring(start, end);
+            
+            if (selectedText) {
+                let formattedText = '';
+                switch(command) {
+                    case 'bold':
+                        formattedText = `**${selectedText}**`;
+                        break;
+                    case 'italic':
+                        formattedText = `*${selectedText}*`;
+                        break;
+                    case 'underline':
+                        formattedText = `<u>${selectedText}</u>`;
+                        break;
+                }
+                
+                textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
+                textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
+                textarea.focus();
+            }
+        }
+
+        function insertHeading() {
+            const textarea = document.getElementById('content-body');
+            const start = textarea.selectionStart;
+            const headingText = '\n\n# Heading\n\n';
+            
+            textarea.value = textarea.value.substring(0, start) + headingText + textarea.value.substring(start);
+            textarea.setSelectionRange(start + 4, start + 11);
+            textarea.focus();
+        }
+
+        function insertList(type) {
+            const textarea = document.getElementById('content-body');
+            const start = textarea.selectionStart;
+            const listItem = type === 'ul' ? '\n- List item\n' : '\n1. List item\n';
+            
+            textarea.value = textarea.value.substring(0, start) + listItem + textarea.value.substring(start);
+            textarea.setSelectionRange(start + listItem.length, start + listItem.length);
+            textarea.focus();
+        }
+
+        function insertLink() {
+            const url = prompt('Enter URL:');
+            const text = prompt('Enter link text:') || url;
+            
+            if (url) {
+                const textarea = document.getElementById('content-body');
+                const start = textarea.selectionStart;
+                const linkText = `[${text}](${url})`;
+                
+                textarea.value = textarea.value.substring(0, start) + linkText + textarea.value.substring(start);
+                textarea.setSelectionRange(start + linkText.length, start + linkText.length);
+                textarea.focus();
+            }
+        }
+
+        function insertImage() {
+            const url = prompt('Enter image URL:');
+            const alt = prompt('Enter alt text:') || 'Image';
+            
+            if (url) {
+                const textarea = document.getElementById('content-body');
+                const start = textarea.selectionStart;
+                const imageText = `![${alt}](${url})`;
+                
+                textarea.value = textarea.value.substring(0, start) + imageText + textarea.value.substring(start);
+                textarea.setSelectionRange(start + imageText.length, start + imageText.length);
+                textarea.focus();
+            }
+        }
+
+        function insertCode() {
+            const textarea = document.getElementById('content-body');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const selectedText = textarea.value.substring(start, end);
+            
+            const codeText = selectedText ? `\`${selectedText}\`` : '\`code\`';
+            
+            textarea.value = textarea.value.substring(0, start) + codeText + textarea.value.substring(end);
+            textarea.setSelectionRange(start + codeText.length, start + codeText.length);
+            textarea.focus();
+        }
+
+        // Global functions
+        function openEditor(id = null) {
+            contentManager.openEditor(id);
+        }
+
+        function closeEditor() {
+            contentManager.closeEditor();
+        }
+
+        function previewContent() {
+            contentManager.previewContent();
+        }
+
+        function saveContent(status) {
+            contentManager.saveContent(status);
+        }
+
+        function importContent() {
+            contentManager.showNotification('Import functionality coming soon!', 'info');
+        }
+
+        function openSettings() {
+            contentManager.showNotification('Settings panel coming soon!', 'info');
+        }
+
+        // Initialize Content Manager
+        let contentManager;
+        document.addEventListener('DOMContentLoaded', () => {
+            contentManager = new ContentManager();
+        });
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('editor-modal')) {
+                contentManager.closeEditor();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 's':
+                        e.preventDefault();
+                        if (document.getElementById('editor-modal').style.display === 'block') {
+                            saveContent('draft');
+                        }
+                        break;
+                    case 'Enter':
+                        if (e.shiftKey && document.getElementById('editor-modal').style.display === 'block') {
+                            e.preventDefault();
+                            saveContent('published');
+                        }
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

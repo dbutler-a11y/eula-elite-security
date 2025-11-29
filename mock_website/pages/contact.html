@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Contact - Eula Elite Security & Transport</title>
+    <meta name="description" content="Contact Houston's premier executive protection service. Confidential consultation available 24/7. Emergency response within 15 minutes.">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="icon" type="image/svg+xml" href="http://localhost:8080/logo-mark.svg">
+    <style>
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .contact-method {
+            background: var(--pearl-white);
+            padding: var(--spacing-xl);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--champagne-gold);
+            text-align: center;
+        }
+        
+        .contact-method.emergency {
+            background: var(--ruby-red);
+            color: white;
+            border-left-color: white;
+            animation: emergency-pulse 2s infinite;
+        }
+        
+        @keyframes emergency-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--champagne-gold);
+        }
+        
+        .contact-method.emergency .contact-icon {
+            color: white;
+        }
+        
+        .contact-number {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--steel-blue);
+            text-decoration: none;
+            display: block;
+            margin: var(--spacing-sm) 0;
+        }
+        
+        .contact-method.emergency .contact-number {
+            color: white;
+        }
+        
+        .form-section {
+            background: var(--onyx-black);
+            color: var(--platinum);
+            padding: var(--spacing-2xl) 0;
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .security-notice {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid var(--champagne-gold);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .emergency-protocol {
+            background: var(--ruby-red);
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: 12px;
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .protocol-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .protocol-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .step-number {
+            background: white;
+            color: var(--ruby-red);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto var(--spacing-sm);
+        }
+        
+        .office-hours {
+            background: var(--midnight-blue);
+            color: var(--platinum);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .consultation-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .consultation-type {
+            background: var(--pearl-white);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border: 2px solid var(--platinum);
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-type:hover {
+            border-color: var(--champagne-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .consultation-level {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--steel-blue);
+            margin-bottom: var(--spacing-sm);
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Eula Elite</a>
+            <ul class="main-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li><a href="blog.html" class="nav-link">Insights</a></li>
+                <li><a href="tel:+17135551234" class="btn btn-emergency">Emergency: (713) 555-1234</a></li>
+            </ul>
+            <button class="menu-toggle">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="contact-hero" style="min-height: 60vh;">
+            <div class="hero-content">
+                <h1 class="headline-hero">Secure, Confidential Consultation Available 24/7</h1>
+                <p class="hero-subtitle">Your privacy and security begin with your first contact. All consultations are conducted with absolute discretion.</p>
+            </div>
+        </section>
+
+        <!-- Emergency Response Section -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="emergency-protocol">
+                    <div class="text-center">
+                        <h2 class="headline-section" style="color: white;">Emergency Protection Response</h2>
+                        <p class="body-professional" style="color: white; font-size: var(--text-xl); max-width: 800px; margin: 0 auto;">
+                            If you're facing an immediate security concern, our emergency response team is standing by 24/7. Licensed Level IV PPOs can be deployed anywhere in the Greater Houston area within 15 minutes.
+                        </p>
+                    </div>
+
+                    <h3 style="color: white; text-align: center; margin: var(--spacing-lg) 0 var(--spacing-md);">Emergency Protocol</h3>
+                    <div class="protocol-steps">
+                        <div class="protocol-step">
+                            <div class="step-number">1</div>
+                            <h4>Call Emergency Hotline</h4>
+                            <p>(713) 555-1234</p>
+                        </div>
+                        <div class="protocol-step">
+                            <div class="step-number">2</div>
+                            <h4>Provide Location</h4>
+                            <p>Give exact location and threat assessment</p>
+                        </div>
+                        <div class="protocol-step">
+                            <div class="step-number">3</div>
+                            <h4>Secure Position</h4>
+                            <p>Remain in secure location if possible</p>
+                        </div>
+                        <div class="protocol-step">
+                            <div class="step-number">4</div>
+                            <h4>Coordinate Response</h4>
+                            <p>Our team coordinates immediate response</p>
+                        </div>
+                        <div class="protocol-step">
+                            <div class="step-number">5</div>
+                            <h4>Protection Arrives</h4>
+                            <p>Licensed PPO on-scene within 15 minutes</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center" style="margin-top: var(--spacing-lg);">
+                        <a href="tel:+17135551234" class="btn btn-primary" style="background: white; color: var(--ruby-red); font-weight: 700; font-size: var(--text-xl);">
+                            📞 EMERGENCY HOTLINE: (713) 555-1234
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Methods -->
+        <section class="section section-light">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="headline-section">Contact Methods</h2>
+                    <p class="subheadline-luxury">Choose your preferred method of secure communication</p>
+                </div>
+
+                <div class="contact-methods">
+                    <div class="contact-method emergency">
+                        <div class="contact-icon">🚨</div>
+                        <h3>Emergency Hotline</h3>
+                        <a href="tel:+17135551234" class="contact-number">(713) 555-1234</a>
+                        <p><strong>24/7 immediate response</strong></p>
+                        <p>For urgent security situations requiring immediate PPO deployment</p>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">📞</div>
+                        <h3>Consultation Line</h3>
+                        <a href="tel:+17135555678" class="contact-number">(713) 555-5678</a>
+                        <p><strong>Secure, private discussions</strong></p>
+                        <p>For non-emergency consultations and service planning</p>
+                        <div class="office-hours">
+                            <strong style="color: var(--champagne-gold);">Business Hours:</strong><br>
+                            Monday - Friday: 8:00 AM - 8:00 PM<br>
+                            Saturday - Sunday: 10:00 AM - 6:00 PM<br>
+                            <em>24/7 availability for existing clients</em>
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">📧</div>
+                        <h3>Encrypted Email</h3>
+                        <a href="mailto:secure@eulalite.com" class="contact-number">secure@eulalite.com</a>
+                        <p><strong>End-to-end encrypted communications</strong></p>
+                        <p>For detailed security assessments and service proposals</p>
+                        <div class="security-notice">
+                            <p style="color: var(--steel-blue); margin: 0;">
+                                🔒 All email communications are automatically encrypted using enterprise-grade security protocols.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secure Contact Form -->
+        <section class="form-section">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="headline-section text-gold">Secure Inquiry Form</h2>
+                    <p class="subheadline-luxury">All inquiries are encrypted and handled with absolute discretion</p>
+                </div>
+
+                <div class="consultation-types">
+                    <div class="consultation-type">
+                        <div class="consultation-level">Standard Consultation</div>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>✓ Basic confidentiality protocols</li>
+                            <li>✓ General security assessment</li>
+                            <li>✓ Service package recommendations</li>
+                            <li>✓ Response within 4 hours</li>
+                        </ul>
+                    </div>
+
+                    <div class="consultation-type">
+                        <div class="consultation-level">High Confidentiality</div>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>✓ Enhanced privacy protocols</li>
+                            <li>✓ Detailed threat assessment</li>
+                            <li>✓ Custom protection planning</li>
+                            <li>✓ Response within 2 hours</li>
+                            <li>✓ Limited documentation retention</li>
+                        </ul>
+                    </div>
+
+                    <div class="consultation-type">
+                        <div class="consultation-level">Maximum Discretion</div>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>✓ Maximum confidentiality protocols</li>
+                            <li>✓ Comprehensive security evaluation</li>
+                            <li>✓ Executive protection planning</li>
+                            <li>✓ Response within 1 hour</li>
+                            <li>✓ Encrypted communications only</li>
+                            <li>✓ Anonymous consultation options</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <form class="contact-form secure-form" style="max-width: 800px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="full_name" class="form-label">Full Name *</label>
+                            <input type="text" id="full_name" name="full_name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company" class="form-label">Company/Organization</label>
+                            <input type="text" id="company" name="company" class="form-input">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Confidential Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Secure Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="service_interest" class="form-label">Service Interest</label>
+                            <select id="service_interest" name="service_interest" class="form-select">
+                                <option value="">Select a service</option>
+                                <option value="daily">Elite Daily Protection ($3,000)</option>
+                                <option value="weekly">Weekly Executive Retainer ($12,000)</option>
+                                <option value="monthly">Monthly Elite Membership ($25,000)</option>
+                                <option value="consultation">General Security Consultation</option>
+                                <option value="emergency">Emergency Response Setup</option>
+                                <option value="corporate">Corporate Executive Protection</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="urgency" class="form-label">Urgency Level</label>
+                            <select id="urgency" name="urgency" class="form-select">
+                                <option value="standard">Standard (within 4 hours)</option>
+                                <option value="priority">Priority (within 2 hours)</option>
+                                <option value="urgent">Urgent (within 1 hour)</option>
+                                <option value="immediate">Immediate (call emergency line)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="preferred_contact_time" class="form-label">Preferred Contact Time</label>
+                            <select id="preferred_contact_time" name="preferred_contact_time" class="form-select">
+                                <option value="morning">Morning (8 AM - 12 PM)</option>
+                                <option value="afternoon">Afternoon (12 PM - 6 PM)</option>
+                                <option value="evening">Evening (6 PM - 10 PM)</option>
+                                <option value="anytime">Anytime</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confidentiality_level" class="form-label">Confidentiality Level</label>
+                            <select id="confidentiality_level" name="confidentiality_level" class="form-select">
+                                <option value="standard">Standard</option>
+                                <option value="high">High</option>
+                                <option value="maximum">Maximum</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="current_location" class="form-label">Current Location/Area of Protection Needed</label>
+                        <input type="text" id="current_location" name="current_location" class="form-input" placeholder="e.g., Downtown Houston, The Woodlands, Memorial area">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="security_concerns" class="form-label">Current Security Concerns or Threat Assessment</label>
+                        <textarea id="security_concerns" name="security_concerns" class="form-textarea" placeholder="Please describe any specific security concerns, recent incidents, or threat assessments (optional but helpful for our evaluation)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="special_requirements" class="form-label">Special Requirements/Additional Information</label>
+                        <textarea id="special_requirements" name="special_requirements" class="form-textarea" placeholder="Travel requirements, family protection needs, event security, corporate executive protection, etc."></textarea>
+                    </div>
+
+                    <div class="security-notice">
+                        <h4 style="color: var(--champagne-gold); margin-bottom: var(--spacing-sm);">Privacy & Security Notice</h4>
+                        <p id="confidentiality-warning" style="color: var(--steel-blue); margin: 0;">
+                            Standard confidentiality protocols will be applied. All communications are encrypted and protected by our comprehensive privacy policy.
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); margin-top: var(--spacing-lg);">
+                        <button type="submit" class="btn btn-primary">Submit Secure Inquiry</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='tel:+17135555678'">
+                            Call Instead: (713) 555-5678
+                        </button>
+                    </div>
+                    
+                    <p style="font-size: var(--text-sm); color: var(--platinum); margin-top: var(--spacing-md); text-align: center;">
+                        <strong>Response Guarantee:</strong> All inquiries receive a response within 2 hours during business hours, 
+                        and within 4 hours during evenings and weekends. For immediate assistance, please call our consultation line.
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Location & Service Areas -->
+        <section class="section section-light">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="headline-section">Service Areas</h2>
+                    <p class="subheadline-luxury">Comprehensive protection coverage throughout Greater Houston</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3 class="service-title" style="color: var(--steel-blue);">Primary Service Area</h3>
+                        <div class="trust-icon" style="color: var(--emerald-green);">📍</div>
+                        <ul class="service-features">
+                            <li>Downtown Houston</li>
+                            <li>Galleria/Uptown</li>
+                            <li>River Oaks</li>
+                            <li>Memorial</li>
+                            <li>The Heights</li>
+                            <li>Energy Corridor</li>
+                            <li>Medical Center</li>
+                            <li>Midtown</li>
+                        </ul>
+                        <p style="color: var(--emerald-green); font-weight: 600;">Standard response time: &lt;15 minutes</p>
+                    </div>
+
+                    <div class="service-card">
+                        <h3 class="service-title" style="color: var(--steel-blue);">Extended Service Area</h3>
+                        <div class="trust-icon" style="color: var(--sapphire-blue);">🌐</div>
+                        <ul class="service-features">
+                            <li>The Woodlands</li>
+                            <li>Sugar Land</li>
+                            <li>Pearland</li>
+                            <li>Katy</li>
+                            <li>Cypress</li>
+                            <li>Spring</li>
+                            <li>Humble</li>
+                            <li>Clear Lake</li>
+                        </ul>
+                        <p style="color: var(--sapphire-blue); font-weight: 600;">Extended response time: 20-30 minutes</p>
+                    </div>
+
+                    <div class="service-card">
+                        <h3 class="service-title" style="color: var(--steel-blue);">Specialized Services</h3>
+                        <div class="trust-icon" style="color: var(--amber-warning);">✈️</div>
+                        <ul class="service-features">
+                            <li>Bush Intercontinental Airport (IAH)</li>
+                            <li>Hobby Airport (HOU)</li>
+                            <li>Private jet terminals</li>
+                            <li>Corporate helicopter pads</li>
+                            <li>Cruise terminals</li>
+                            <li>Event venues statewide</li>
+                            <li>Interstate travel coordination</li>
+                            <li>International travel support</li>
+                        </ul>
+                        <p style="color: var(--amber-warning); font-weight: 600;">Advance coordination required</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Eula Elite Security & Transport</h3>
+                <p>Licensed Level IV Personal Protection Officers providing Fortune 500-caliber security services for Houston's elite community.</p>
+                <p style="color: var(--champagne-gold); margin-top: var(--spacing-md);">
+                    <strong>"Where Elite Travel Meets Absolute Protection"</strong>
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <ul style="list-style: none;">
+                    <li><strong style="color: var(--ruby-red);">Emergency: (713) 555-1234</strong></li>
+                    <li>Consultation: (713) 555-5678</li>
+                    <li>Email: <a href="mailto:secure@eulalite.com">secure@eulalite.com</a></li>
+                    <li style="margin-top: var(--spacing-sm);">
+                        <strong>Business Hours:</strong><br>
+                        Mon-Fri: 8 AM - 8 PM<br>
+                        Sat-Sun: 10 AM - 6 PM
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul style="list-style: none;">
+                    <li><a href="services.html#daily">Elite Daily Protection</a></li>
+                    <li><a href="services.html#weekly">Weekly Executive Retainer</a></li>
+                    <li><a href="services.html#monthly">Monthly Elite Membership</a></li>
+                    <li><a href="services.html#fleet">Luxury Vehicle Fleet</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul style="list-style: none;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about.html#leadership">Leadership</a></li>
+                    <li><a href="about.html#licensing">PPO Licensing</a></li>
+                    <li><a href="blog.html">Security Insights</a></li>
+                    <li><a href="http://localhost:3001" target="_blank">Client Portal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Eula Elite Security & Transport. All rights reserved. Licensed Level IV Personal Protection Officers.</p>
+            <p style="margin-top: var(--spacing-xs); font-size: var(--text-sm);">
+                Texas Private Security License #XXXX | Fully Insured & Bonded | Confidentiality Guaranteed
+            </p>
+        </div>
+    </footer>
+
+    <script src="../public/js/main.js"></script>
+</body>
+</html>

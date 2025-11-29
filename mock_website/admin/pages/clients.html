@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Management - Eula Elite Admin</title>
+    <link rel="stylesheet" href="../public/css/admin.css">
+    <link rel="icon" type="image/svg+xml" href="http://localhost:8080/logo-mark.svg">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <nav class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="admin-logo">Eula Elite Admin</a>
+            </div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Dashboard</div>
+                    <a href="index.html" class="nav-item">
+                        <i>📊</i> Overview
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>📈</i> Analytics
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Operations</div>
+                    <a href="clients.html" class="nav-item active">
+                        <i>👥</i> Client Management
+                    </a>
+                    <a href="bookings.html" class="nav-item">
+                        <i>📅</i> Booking System
+                    </a>
+                    <a href="ppo.html" class="nav-item">
+                        <i>🛡️</i> PPO Management
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>🚗</i> Fleet Management
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Content</div>
+                    <a href="content.html" class="nav-item">
+                        <i>📝</i> Blog Management
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>📨</i> Communications
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">System</div>
+                    <a href="#" class="nav-item">
+                        <i>⚙️</i> Settings
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>👤</i> Users
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>🔒</i> Security Logs
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="sidebar-toggle">☰</button>
+                <h1 class="header-title">Client Management</h1>
+                <div class="header-actions">
+                    <button class="btn btn-danger" data-action="emergency-response">🚨 Emergency</button>
+                    <div class="user-menu">
+                        <span>Admin User</span>
+                        <i>👤</i>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="admin-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h2 class="page-title">Client Management</h2>
+                    <p class="page-subtitle">Manage client profiles, contracts, and protection requirements</p>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">127</div>
+                        <div class="stat-label">Total Clients</div>
+                        <div class="stat-change positive">+5 this month</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">118</div>
+                        <div class="stat-label">Active Clients</div>
+                        <div class="stat-change positive">93% active rate</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">$1.2M</div>
+                        <div class="stat-label">Total Contract Value</div>
+                        <div class="stat-change positive">+15% this quarter</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">9</div>
+                        <div class="stat-label">Pending Reviews</div>
+                        <div class="stat-change">Requires attention</div>
+                    </div>
+                </div>
+                
+                <!-- Search and Filters -->
+                <div class="card">
+                    <div class="search-filters">
+                        <input type="text" class="search-input" data-target="#clients-table" placeholder="Search clients by name, type, or PPO assignment...">
+                        <select class="filter-select" data-filter="status">
+                            <option value="all">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="pending">Pending</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="suspended">Suspended</option>
+                        </select>
+                        <select class="filter-select" data-filter="risk">
+                            <option value="all">All Risk Levels</option>
+                            <option value="high">High Risk</option>
+                            <option value="medium">Medium Risk</option>
+                            <option value="low">Low Risk</option>
+                        </select>
+                        <select class="filter-select" data-filter="package">
+                            <option value="all">All Packages</option>
+                            <option value="monthly">Monthly Elite</option>
+                            <option value="weekly">Weekly Executive</option>
+                            <option value="daily">Elite Daily</option>
+                        </select>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <button class="btn btn-primary" data-modal="add-client-modal">Add New Client</button>
+                        <button class="btn btn-secondary" onclick="dashboard.exportData('clients')">Export Client Data</button>
+                        <button class="btn btn-warning">Import Clients</button>
+                        <button class="btn btn-success">Generate Client Report</button>
+                    </div>
+                </div>
+                
+                <!-- Clients Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Client Directory</h3>
+                        <span class="text-muted">127 clients total</span>
+                    </div>
+                    
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="clients-table">
+                            <thead>
+                                <tr>
+                                    <th>Client Information</th>
+                                    <th>Status</th>
+                                    <th>Protection Package</th>
+                                    <th>Join Date</th>
+                                    <th>Last Contact</th>
+                                    <th>Risk Level</th>
+                                    <th>Assigned PPO</th>
+                                    <th>Contract Value</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Add Client Modal -->
+    <div id="add-client-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; width: 90%; max-width: 600px; max-height: 90%; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Add New Client</h3>
+                <button class="modal-close" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            
+            <form class="admin-form" id="add-client-form">
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="client_name" class="form-label">Full Name *</label>
+                            <input type="text" id="client_name" name="name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="client_type" class="form-label">Client Type *</label>
+                            <select id="client_type" name="type" class="form-select" required>
+                                <option value="">Select Type</option>
+                                <option value="Professional Athlete">Professional Athlete</option>
+                                <option value="Fortune 500 Executive">Fortune 500 Executive</option>
+                                <option value="Entertainment Industry">Entertainment Industry</option>
+                                <option value="Tech Entrepreneur">Tech Entrepreneur</option>
+                                <option value="Legal Professional">Legal Professional</option>
+                                <option value="Medical Professional">Medical Professional</option>
+                                <option value="Political Figure">Political Figure</option>
+                                <option value="High-Net-Worth Individual">High-Net-Worth Individual</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="client_phone" class="form-label">Phone Number *</label>
+                            <input type="tel" id="client_phone" name="phone" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="client_email" class="form-label">Secure Email *</label>
+                            <input type="email" id="client_email" name="email" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="client_package" class="form-label">Protection Package *</label>
+                            <select id="client_package" name="package" class="form-select" required>
+                                <option value="">Select Package</option>
+                                <option value="Elite Daily Protection">Elite Daily Protection ($3,000)</option>
+                                <option value="Weekly Executive Retainer">Weekly Executive Retainer ($12,000)</option>
+                                <option value="Monthly Elite Membership">Monthly Elite Membership ($25,000)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="client_risk" class="form-label">Risk Assessment *</label>
+                            <select id="client_risk" name="riskLevel" class="form-select" required>
+                                <option value="">Select Risk Level</option>
+                                <option value="Low">Low Risk</option>
+                                <option value="Medium">Medium Risk</option>
+                                <option value="High">High Risk</option>
+                                <option value="Critical">Critical Risk</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="client_address" class="form-label">Primary Address</label>
+                            <input type="text" id="client_address" name="address" class="form-input" placeholder="Houston area location">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emergency_contacts" class="form-label">Emergency Contacts</label>
+                            <input type="number" id="emergency_contacts" name="emergencyContacts" class="form-input" min="0" max="10" value="1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="special_requirements" class="form-label">Special Requirements</label>
+                    <textarea id="special_requirements" name="specialRequirements" class="form-textarea" placeholder="Any specific protection requirements, threat assessments, or special considerations..."></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Client Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Edit Client Modal -->
+    <div id="edit-client-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; width: 90%; max-width: 700px; max-height: 90%; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Edit Client Profile</h3>
+                <button class="modal-close" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h4 style="margin-bottom: 0.5rem; color: var(--steel-blue);">Client Details</h4>
+                <p style="margin: 0; color: #6c757d;">Update client information, protection requirements, and security settings</p>
+            </div>
+            
+            <!-- Client edit form would be populated dynamically -->
+            <p style="text-align: center; color: #6c757d; font-style: italic;">Client editing interface would be populated here based on selected client</p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                <button type="button" class="btn btn-primary">Update Client</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../public/js/admin.js"></script>
+</body>
+</html>

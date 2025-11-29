@@ -1,0 +1,70 @@
+{
+  "name": "eula-elite-security-mock-website",
+  "version": "1.0.0",
+  "description": "Mock website and admin dashboard for Eula Elite Security & Transport planning phase",
+  "main": "servers/website_server.js",
+  "scripts": {
+    "start": "npm run start:all",
+    "start:all": "concurrently \"npm run start:website\" \"npm run start:admin\" \"npm run start:assets\"",
+    "start:website": "node servers/website_server.js",
+    "start:admin": "node servers/admin_server.js",
+    "start:assets": "node ../asset_server.js",
+    "dev": "concurrently \"nodemon servers/website_server.js\" \"nodemon servers/admin_server.js\" \"nodemon ../asset_server.js\"",
+    "stop:all": "pkill -f \"node.*server.js\"",
+    "test": "echo \"Mock website - no tests configured\"",
+    "build": "echo \"Static files - no build required\""
+  },
+  "keywords": [
+    "security",
+    "executive-protection",
+    "houston",
+    "ppo",
+    "luxury-security",
+    "mock-website",
+    "planning"
+  ],
+  "author": "Eula Elite Security & Transport",
+  "license": "Private",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "private"
+  },
+  "private": true,
+  "config": {
+    "ports": {
+      "website": 3000,
+      "admin": 3001,
+      "assets": 8080
+    }
+  },
+  "servers": {
+    "website": {
+      "port": 3000,
+      "description": "Main website - public facing pages",
+      "url": "http://localhost:3000"
+    },
+    "admin": {
+      "port": 3001,
+      "description": "Admin dashboard - internal management",
+      "url": "http://localhost:3001"
+    },
+    "assets": {
+      "port": 8080,
+      "description": "Asset server - images and media",
+      "url": "http://localhost:8080"
+    }
+  }
+}

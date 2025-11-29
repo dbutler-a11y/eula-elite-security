@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eula Elite Admin Dashboard</title>
+    <link rel="stylesheet" href="../public/css/admin.css">
+    <link rel="icon" type="image/svg+xml" href="http://localhost:8080/logo-mark.svg">
+    <style>
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--admin-border);
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-message {
+            font-weight: 500;
+            color: var(--steel-blue);
+        }
+        
+        .activity-time {
+            font-size: 0.875rem;
+        }
+        
+        .emergency-alert {
+            background: linear-gradient(45deg, var(--ruby-red), #e74c3c);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+            animation: emergency-pulse 2s infinite;
+        }
+        
+        @keyframes emergency-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .quick-stat {
+            background: var(--admin-card);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--admin-border);
+        }
+        
+        .quick-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--champagne-gold);
+        }
+        
+        .quick-stat-label {
+            font-size: 0.875rem;
+            color: var(--admin-text-light);
+            margin-top: 0.25rem;
+        }
+        
+        .operational-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .status-item {
+            background: var(--admin-card);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            border-left: 4px solid var(--emerald-green);
+        }
+        
+        .status-item.warning {
+            border-left-color: var(--amber-warning);
+        }
+        
+        .status-item.danger {
+            border-left-color: var(--ruby-red);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <nav class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="admin-logo">Eula Elite Admin</a>
+            </div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Dashboard</div>
+                    <a href="index.html" class="nav-item active">
+                        <i>📊</i> Overview
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>📈</i> Analytics
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Operations</div>
+                    <a href="clients.html" class="nav-item">
+                        <i>👥</i> Client Management
+                    </a>
+                    <a href="bookings.html" class="nav-item">
+                        <i>📅</i> Booking System
+                    </a>
+                    <a href="ppo.html" class="nav-item">
+                        <i>🛡️</i> PPO Management
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>🚗</i> Fleet Management
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Content</div>
+                    <a href="content.html" class="nav-item">
+                        <i>📝</i> Blog Management
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>📨</i> Communications
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">System</div>
+                    <a href="#" class="nav-item">
+                        <i>⚙️</i> Settings
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>👤</i> Users
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i>🔒</i> Security Logs
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="sidebar-toggle">☰</button>
+                <h1 class="header-title">Command Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn btn-danger" data-action="emergency-response">🚨 Emergency Response</button>
+                    <div class="user-menu">
+                        <span>Admin User</span>
+                        <i>👤</i>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="admin-content">
+                <!-- Emergency Alert (conditionally shown) -->
+                <!-- <div class="emergency-alert">
+                    <h3>🚨 ACTIVE EMERGENCY RESPONSE</h3>
+                    <p>Emergency protocols activated for client "Rodriguez, M." - Memorial Area</p>
+                    <p>PPO Team dispatched - ETA 8 minutes</p>
+                </div> -->
+                
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h2 class="page-title">Operations Overview</h2>
+                    <p class="page-subtitle">Real-time monitoring of Eula Elite Security & Transport operations</p>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <div class="quick-stat-value">🟢</div>
+                        <div class="quick-stat-label">System Status</div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-value">18</div>
+                        <div class="quick-stat-label">Active Deployments</div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-value">34</div>
+                        <div class="quick-stat-label">PPOs Available</div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-value">12.5 min</div>
+                        <div class="quick-stat-label">Avg Response Time</div>
+                    </div>
+                </div>
+                
+                <!-- Main Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card" data-stat="totalClients">
+                        <div class="stat-value">127</div>
+                        <div class="stat-label">Total Clients</div>
+                        <div class="stat-change positive">+12% this month</div>
+                    </div>
+                    
+                    <div class="stat-card" data-stat="activeBookings">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">Active Bookings</div>
+                        <div class="stat-change positive">+3 today</div>
+                    </div>
+                    
+                    <div class="stat-card" data-stat="monthlyRevenue">
+                        <div class="stat-value">$485K</div>
+                        <div class="stat-label">Monthly Revenue</div>
+                        <div class="stat-change positive">+8% vs last month</div>
+                    </div>
+                    
+                    <div class="stat-card" data-stat="clientSatisfaction">
+                        <div class="stat-value">98.7%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                        <div class="stat-change positive">+0.3% this quarter</div>
+                    </div>
+                    
+                    <div class="stat-card" data-stat="responseTime">
+                        <div class="stat-value">12.5 min</div>
+                        <div class="stat-label">Avg Response Time</div>
+                        <div class="stat-change positive">-2.1 min improvement</div>
+                    </div>
+                    
+                    <div class="stat-card" data-stat="activePPOs">
+                        <div class="stat-value">34</div>
+                        <div class="stat-label">Licensed PPOs</div>
+                        <div class="stat-change positive">+2 newly certified</div>
+                    </div>
+                </div>
+                
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <div class="chart-container" data-chart="revenue">
+                        <div class="card-header">
+                            <h3 class="card-title">Revenue Trend</h3>
+                        </div>
+                        <div class="chart-placeholder"></div>
+                    </div>
+                    
+                    <div class="chart-container" data-chart="bookings">
+                        <div class="card-header">
+                            <h3 class="card-title">Booking Volume</h3>
+                        </div>
+                        <div class="chart-placeholder"></div>
+                    </div>
+                    
+                    <div class="chart-container" data-chart="response-times">
+                        <div class="card-header">
+                            <h3 class="card-title">Response Times</h3>
+                        </div>
+                        <div class="chart-placeholder"></div>
+                    </div>
+                    
+                    <div class="chart-container" data-chart="client-satisfaction">
+                        <div class="card-header">
+                            <h3 class="card-title">Client Satisfaction</h3>
+                        </div>
+                        <div class="chart-placeholder"></div>
+                    </div>
+                </div>
+                
+                <!-- Two Column Layout -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); margin-top: var(--spacing-xl);">
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Activity</h3>
+                            <a href="#" class="btn btn-sm btn-secondary">View All</a>
+                        </div>
+                        <div id="recent-activity">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Operational Status -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Operational Status</h3>
+                        </div>
+                        <div class="operational-status">
+                            <div class="status-item">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Command Center</span>
+                                    <span class="status-badge status-active">Online</span>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                                    24/7 monitoring active
+                                </div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Communication Systems</span>
+                                    <span class="status-badge status-active">Operational</span>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                                    All channels secure
+                                </div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Fleet Tracking</span>
+                                    <span class="status-badge status-active">Active</span>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                                    12 vehicles deployed
+                                </div>
+                            </div>
+                            
+                            <div class="status-item warning">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Emergency Response</span>
+                                    <span class="status-badge status-pending">Standby</span>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                                    Ready for deployment
+                                </div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Client Portal</span>
+                                    <span class="status-badge status-active">Online</span>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                                    <a href="http://localhost:3000" target="_blank">View Public Site</a>
+                                </div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Asset Server</span>
+                                    <span class="status-badge status-active">Running</span>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                                    <a href="http://localhost:8080" target="_blank">Port 8080</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="card" style="margin-top: var(--spacing-xl);">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Actions</h3>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="clients.html" class="btn btn-primary">Add New Client</a>
+                        <a href="bookings.html" class="btn btn-secondary">Create Booking</a>
+                        <a href="ppo.html" class="btn btn-secondary">Assign PPO</a>
+                        <button class="btn btn-warning" onclick="dashboard.exportData('daily-report')">Generate Daily Report</button>
+                        <button class="btn btn-success" onclick="dashboard.createBackup()">Create Backup</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../public/js/admin.js"></script>
+</body>
+</html>
